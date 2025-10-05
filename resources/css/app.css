@@ -1,0 +1,594 @@
+@import 'bootstrap/dist/css/bootstrap.css';
+
+
+/* =================================================== */
+/* 2. NAVBAR (Estilos personalizados)                  */
+/* =================================================== */
+
+/* --- Estilo Base del Navbar (Efecto "vidrio" sobre el hero) --- */
+.navbar-glass {
+    /* Estilos iniciales cuando está sobre el video/hero */
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.4s ease-out;
+}
+
+/* --- Estilos cuando se hace scroll --- */
+.navbar-scrolled {
+    /* El fondo se vuelve más opaco y sólido */
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Estilo de los links --- */
+.nav-link {
+    position: relative;
+    padding-bottom: 8px; /* Espacio para el subrayado */
+    font-weight: 600;
+    transition: color 0.3s ease;
+    color: #555; /* Color por defecto para estado "scrolled" */
+}
+
+.navbar-glass:not(.navbar-scrolled) .nav-link {
+    color: var(--nutrive-gold); /* Color dorado sobre el video */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #0f4d36; /* Verde oscuro en hover o activo */
+}
+
+/* Subrayado animado */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #0f4d36;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+}
+
+/* --- Botón CTA con forma de pincelada --- */
+.cta-brush-button {
+    background-image: url('../img/retazo3.PNG'); /* Ajusta la ruta si es necesario */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 420px;
+    height: 90px;
+    color: var(--nutrive-red);
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.cta-brush-button:hover {
+    color: var(--nutrive-gold);
+    transform: scale(1.05) rotate(-2deg);
+}
+
+/* --- Detalles decorativos del Navbar --- */
+.nav-decoration {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 300px;
+    background-repeat: no-repeat;
+    opacity: 1;
+    z-index: -1;
+    pointer-events: none;
+    transition: opacity 0.4s ease-out;
+}
+
+.nav-decoration--left {
+    left: 0;
+    background-image: url('../img/retazo2.png'); /* Ajusta la ruta */
+    background-position: top left;
+    background-size: contain;
+}
+
+.nav-decoration--right {
+    right: 0;
+    background-image: url('../img/retazo1.png'); /* Ajusta la ruta */
+    background-position: top right;
+    background-size: contain;
+}
+
+/* Ocultar decoraciones cuando se hace scroll */
+.navbar-scrolled .nav-decoration {
+    opacity: 0;
+}
+
+/* Ocultar decoraciones en móviles */
+@media (max-width: 1024px) {
+    .nav-decoration {
+        display: none;
+    }
+}
+
+/* =================================================== */
+/* 3. HERO                                             */
+/* =================================================== */
+.hero-video-background {
+    position: relative;
+    overflow: hidden;
+}
+
+#bgvideo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 71, 53, 0.3);
+    z-index: 1;
+}
+
+/* =================================================== */
+/* 4. SECCIONES GENERALES (Títulos, botones, etc.)     */
+/* =================================================== */
+.section-title {
+    font-family: var(--font-title, 'Nunito', sans-serif);
+    font-weight: 800;
+    font-size: 2.5rem;
+    color: var(--brand-green, #124735);
+    line-height: 1.2;
+}
+
+.section-subtitle {
+    font-size: 1.125rem;
+    color: #6c757d;
+    max-width: 600px;
+    margin: 1rem auto 0;
+}
+
+/* --- Animación Plato Flotante --- */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* --- Botones CTA --- */
+.cta-button-secondary {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--brand-green);
+    border: 2px solid var(--brand-gold, #DABD85);
+    font-weight: 700;
+    padding: 0.75rem 1.75rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.cta-button-secondary:hover {
+    background-color: var(--brand-gold, #DABD85);
+    color: var(--brand-green);
+    transform: translateY(-2px);
+}
+
+.cta-button-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #25D366;
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 700;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.cta-button-whatsapp:hover {
+    background-color: #1EBE57;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+/* --- Estilos Tarjetas Features --- */
+
+.section-title {
+    font-family: var(--font-title);
+    font-weight: 800;
+    font-size: 2.25rem;
+    color: var(--brand-green);
+    line-height: 1.2;
+}
+.feature-card-unified {
+    position: relative;
+    margin-bottom: 120px;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+.feature-image-wrapper {
+    flex: 0 0 40%; 
+    position: relative;
+}
+.feature-image-wrapper img {
+    width: 120%;
+    max-width: none;
+    filter: drop-shadow(0 20px 25px rgba(0,0,0,0.25));
+    transform: translateX(-15%);
+}
+.feature-card-content {
+    flex: 0 0 60%;
+    padding-left: 2rem;
+}
+.feature-card-unified--reverse {
+    flex-direction: row-reverse;
+}
+.feature-card-unified--reverse .feature-image-wrapper img {
+    transform: translateX(15%);
+}
+.feature-card-unified--reverse .feature-card-content {
+    padding-left: 0;
+    padding-right: 2rem;
+    text-align: right;
+}
+.feature-card-unified--reverse .feature-list li {
+    justify-content: flex-end;
+}
+.feature-card-unified--reverse .feature-list li i {
+    margin-right: 0;
+    margin-left: 15px;
+    order: 2;
+}
+.feature-title { font-weight: 800; font-size: 2.5rem; }
+.feature-subtitle { font-size: 1.1rem; margin-bottom: 2rem; }
+.feature-list li { display: flex; align-items: center; margin-bottom: 1rem; font-size: 1.1rem; }
+.feature-list li i { font-size: 1.5rem; min-width: 28px; color: var(--nutrive-red); }
+
+/* --- Responsive --- */
+@media (max-width: 991.98px) {
+    .feature-card-unified, .feature-card-unified--reverse { flex-direction: column !important; margin-bottom: 100px; text-align: center !important; }
+    .feature-image-wrapper { width: 100%; margin-top: -100px; }
+    .feature-image-wrapper img { width: 100%; transform: translateX(0) !important; }
+    .feature-card-content, .feature-card-unified--reverse .feature-card-content { width: 100%; padding: 0; margin-top: 1rem; }
+    .feature-list, .feature-card-unified--reverse .feature-list { text-align: left; display: inline-block; }
+    .feature-card-unified--reverse .feature-list li { justify-content: flex-start; }
+    .feature-card-unified--reverse .feature-list li i { margin-left: 0; margin-right: 15px; order: 0; }
+}
+
+/* --- Detalles decorativos con pseudo-elementos --- */
+.feature-card-unified.with-details::before,
+.feature-card-unified.with-details::after {
+    content: '';
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s 0.3s ease, transform 0.5s 0.3s ease;
+}
+.feature-card-unified.with-details.is-visible::before,
+.feature-card-unified.with-details.is-visible::after {
+    opacity: 1;
+    transform: scale(1);
+}
+.feature-card-unified.with-details::before {
+    background-image: url('../../public/img/retazo2.PNG'); /* Ajusta la ruta si es necesario */
+    width: 200px;
+    height: 200px;
+    top: -80px;
+    left: -10px;
+    transform: scale(0.8) rotate(-15deg);
+}
+.feature-card-unified.with-details::after {
+    background-image: url('../../public/img/retazo4.PNG'); /* Ajusta la ruta si es necesario */
+    width: 250px;
+    height: 250px;
+    bottom: -10px;
+    right: -235px;
+    transform: scale(0.8) rotate(10deg);
+}
+.feature-card-unified.with-details.feature-card-unified--reverse::before {
+    background-image: url('../../public/img/retazo3.PNG'); /* Ajusta la ruta si es necesario */
+    width: 200px;
+    height: 200px;
+    top: -145px;
+    right: -50px;
+    left: auto;
+    transform: scale(0.8) rotate(0deg);
+}
+.feature-card-unified.with-details.feature-card-unified--reverse::after {
+    background-image: url('../../public/img/retazo1.PNG'); /* Ajusta la ruta si es necesario */
+    width: 250px;
+    height: 250px;
+    bottom: -40px;
+    left: -110px;
+    right: auto;
+    transform: scale(0.8) rotate(-10deg);
+}
+
+
+
+
+/* (Pseudo-elementos para detalles, si los necesitas) */
+
+/* =================================================== */
+/* 8. ANIMACIONES GLOBALES                             */
+/* =================================================== */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition-delay: var(--animation-delay, 0s);
+}
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =================================================== */
+/* 7. FOOTER                                           */
+/* =================================================== */
+
+.footer-title {
+    font-family: var(--font-title, 'Nunito', sans-serif);
+    font-weight: 700;
+    color: var(--brand-green, #124735);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #6c757d; /* color .text-muted de Bootstrap */
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--brand-accent, #DA4735);
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f8f9fa; /* color .bg-light de Bootstrap */
+    color: var(--brand-green, #124735);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: var(--brand-green, #124735);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+
+/* =================================================== */
+/* . ESTILOS ESPECÍFICOS DE SECCION PLANES                */
+
+/* --- Estilos para la sección de Planes --- */
+.stackedCarousel {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.stackedCarousel .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 320px;
+    height: 400px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.view-details-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    background-color: var(--nutrive-red);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    border: 2px solid var(--nutrive-red);
+}
+
+.view-details-btn:hover {
+    background-color: white;
+    color: var(--nutrive-red);
+}
+
+.stackedCarousel .swiper-slide-active .view-details-btn {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+/* --- Estilos del Modal (Reutilizables) --- */
+.modal-content { border-radius: 15px; border: none; }
+.modal-header { border-bottom: 1px solid #eee; }
+.modal-title { color: var(--nutrive-green); font-weight: 700; }
+.modal-footer { border-top: none; padding: 1rem; }
+.btn-wsp-modal { background-color: var(--nutrive-red); color: white; font-weight: 700; padding: 12px 20px; border-radius: 50px; border: 2px solid var(--nutrive-red); transition: all 0.3s ease; text-decoration: none; }
+.btn-wsp-modal:hover { background-color: transparent; color: var(--nutrive-red); }
+.btn-wsp-modal i { margin-right: 8px; font-size: 1.2rem; }
+
+/* --- Estilos para la Sección de Pasos --- */
+.step-card {
+    position: relative;
+    overflow: hidden; /* Importante para contener el número */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.step-number {
+    position: absolute;
+    top: -20px;
+    left: -15px;
+    font-size: 6rem; /* Tamaño grande */
+    font-weight: 900; /* Letra bien gruesa */
+    color: var(--brand-gold, #DABD85);
+    opacity: 0.15; /* Lo hacemos semitransparente */
+    z-index: 1;
+    line-height: 1;
+    user-select: none; /* Evita que el usuario pueda seleccionar el número */
+}
+
+.step-card .card-img-top {
+    position: relative;
+    z-index: 2; /* Asegura que la imagen esté por encima del número */
+}
+
+.step-card .card-body {
+    position: relative;
+    z-index: 2; /* Y el texto también */
+}
+
+
+
+/* --- Estilos para la Sección de Pasos Interactivos --- */
+.steps-timeline {
+    padding-top: 25vh; /* Empuja el primer texto hacia abajo */
+    padding-bottom: 25vh; /* Espacio al final */
+}
+
+.step-text-block {
+    min-height: 70vh; /* Da a cada bloque de texto suficiente altura para scrollear */
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+.steps-visuals {
+    position: sticky;
+    top: 20vh;
+    height: 60vh;
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    /* ¡CAMBIO CLAVE! Esto oculta la imagen cuando está fuera del contenedor. */
+    overflow: hidden;
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.step-image {
+    position: absolute;
+    width: 100%;
+    max-width: 500px;
+    opacity: 0;
+}
+
+.step-image.is-active {
+    animation: slideInFromRight 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.step-image img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+}
+
+.svg-path {
+    position: absolute;
+    top: 0;
+    left: 20%;
+     /* Ajustamos la posición de la línea para que quede mejor con la imagen a la izquierda */
+    transform: translateX(-50%);
+    height: 100%;
+    width: 100px;
+    z-index: -1;
+    stroke: var(--brand-gold, #DABD85);
+    
+    /* La magia para "dibujar" la línea */
+    stroke-dasharray: 1000; /* Longitud total estimada del path */
+    stroke-dashoffset: 1000;
+    transition: stroke-dashoffset 0.8s ease-in-out;
+}
+
+step-text-block h3::before {
+    position: absolute;
+    top: -0.2em; 
+    left: 0;
+    font-size: 4rem; 
+    font-weight: 900; 
+    color: var(--brand-gold, #DABD85);
+    opacity: 0.5; 
+    line-height: 1;
+}
+
+/* --- Asignamos el número a cada paso --- */
+.steps-timeline .step-text-block:nth-child(1) h3::before {
+    content: '1. ';
+}
+
+.steps-timeline .step-text-block:nth-child(2) h3::before {
+    content: '2.  ';
+}
+
+.steps-timeline .step-text-block:nth-child(3) h3::before {
+    content: '3. ';
+}
