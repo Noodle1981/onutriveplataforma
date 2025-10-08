@@ -72,8 +72,9 @@ class PlanController extends Controller
     }
 
     // Elimina un plan
-    public function destroy(Plan $plan): RedirectResponse
+    public function destroy($id): RedirectResponse
     {
+        $plan =Plan::where('id', $id)->firstOrFail();
         // Borra la imagen del almacenamiento
         Storage::disk('public')->delete($plan->image_path);
         // Borra el registro de la base de datos

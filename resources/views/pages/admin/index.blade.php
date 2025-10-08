@@ -37,7 +37,7 @@
             <td class="align-middle">{{ $plan->name }}</td>
             <td class="align-middle">
                 <a href="{{ route('planes.edit', $plan) }}" class="btn btn-sm btn-warning">Editar</a>
-                <form action="{{ route('planes.destroy', $plan) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este plan?');">
+                <form action="{{ route('planes.destroy', $plan->id) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este plan?');">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
