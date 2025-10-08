@@ -20,25 +20,21 @@ class PageController extends Controller
     }
 
     public function planes(): View
-    {
-        // 1. Obtenemos todos los planes desde la base de datos.
-        $planes_desde_db = Plan::all();
+{
+    // 1. Obtenemos los planes y los transformamos en una sola operación.
+    $planesParaLaVista = Plan::all()->map(function ($plan) {
+        return [
+            // El modelo usa 'name', así que accedemos como $plan->name
+            'nombre' => $plan->name, 
+            // El modelo usa 'image_path', así que accedemos como $plan->image_path
+            'img' => asset('storage/' . $plan->image_path), 
+            'wsp' => 'https://wa.me/542645820093?text=Hola%20Onnutrive%2C%20quisiera%2C%20consultar%2C%20por%2C%20el%2C%20plan%2C%20' . urlencode($plan->name),
+        ];
+    });
 
-        // 2. Transformamos los datos al formato que la vista espera.
-        //    El modelo tiene 'image_path', pero la vista espera 'image'.
-        //    Este 'map' crea un nuevo array con la estructura correcta.
-        $planesParaLaVista = $planes_desde_db->map(function ($plan) {
-            return [
-                'id' => $plan->id,
-                'name' => $plan->name,
-                'image' => $plan->image_path, // Aquí hacemos el "mapeo"
-            ];
-        });
-
-        // 3. Pasamos los datos transformados a la vista.
-        //    Laravel buscará en resources/views/planes/planes.blade.php
-        return view('planes.planes', ['planes' => $planesParaLaVista]);
-    }
+    // 2. Pasamos los datos ya transformados a la vista.
+    return view('planes.planes', ['planes' => $planesParaLaVista]);
+}
     // Aquí podrías añadir métodos para otras páginas:
     // public function nosotros(): View { return view('nosotros'); }
     // public function planes(): View { return view('planes'); }

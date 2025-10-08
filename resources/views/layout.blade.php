@@ -41,6 +41,18 @@
     {{-- Incluimos el Footer en todas las páginas --}}
     @include('partials.footer')
 
-     @stack('scripts')
+    {{-- ========================================================= --}}
+    {{--                INICIO DE LA ADAPTACIÓN                  --}}
+    {{-- ========================================================= --}}
+
+    {{-- 1. Añade el script de Bootstrap ANTES de @stack('scripts') --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    {{-- 2. Tu @stack para los scripts de página se mantiene igual --}}
+    @stack('scripts')
+
+    {{-- ========================================================= --}}
+    {{--                  FIN DE LA ADAPTACIÓN                   --}}
+    {{-- ========================================================= --}}
 </body>
 </html>
