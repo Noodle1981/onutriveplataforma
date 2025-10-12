@@ -1,36 +1,66 @@
+{{-- resources/views/layout.blade.php --}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {{-- Título dinámico. Por defecto será 'Nutrive' --}}
+    <title>@yield('title', 'Nutrive') - Comida Saludable</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tu hoja de estilos personalizada (compilada o directa) -->
+    {{-- Laravel recomienda usar Vite, pero para simplicidad, apuntamos a un archivo en /public/css --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles')
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
+</head>
+
+<body>
+
+    {{-- Incluimos el Navbar en todas las páginas --}}
+    @include('partials.navbar')
+
+    {{-- El contenido principal de cada página se insertará aquí --}}
+    <main>
+        @if (isset($slot))
+        {{-- Para las páginas de Breeze (ej. Perfil) --}}
+        {{ $slot }}
+    @else
+        {{-- Para tus páginas de admin (ej. Planes) --}}
+        @yield('content')
+    @endif
+    </main>
+
+    {{-- Incluimos el Footer en todas las páginas --}}
+    @include('partials.footer')
+
+    {{-- ========================================================= --}}
+    {{--                INICIO DE LA ADAPTACIÓN                  --}}
+    {{-- ========================================================= --}}
+
+    {{-- 1. Añade el script de Bootstrap ANTES de @stack('scripts') --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    {{-- 2. Tu @stack para los scripts de página se mantiene igual --}}
+    @stack('scripts')
+
+    {{-- ========================================================= --}}
+    {{--                  FIN DE LA ADAPTACIÓN                   --}}
+    {{-- ========================================================= --}}
+</body>
 </html>
+
+

@@ -21,15 +21,28 @@
                 </div>
 
                 @auth
-                    {{-- Test para usuario autenticado --}}
-                    <div class="d-none d-lg-block">
-                        <span class="text-white">Usuario Autenticado</span>
-                    </div>
-                    <div class="d-lg-none text-center pt-3">
-                        <span class="text-white">Usuario Autenticado</span>
+                    {{-- Menú Desplegable para Usuario Autenticado (Bootstrap) --}}
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Mi Perfil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                {{-- Formulario para Cerrar Sesión --}}
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault(); this.closest('form').submit();">
+                                        Cerrar Sesión
+                                    </a>
+                                </form>
+                            </li>
+                        </ul>
                     </div>
                 @else
-                    {{-- Botón original para invitados --}}
+                    {{-- Botón para Invitados (tu código original se mantiene) --}}
                     <div class="d-none d-lg-block">
                         <a href="#contacto" class="cta-button">Pedir Ahora</a>
                     </div>

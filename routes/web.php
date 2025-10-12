@@ -22,7 +22,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Tus rutas de administración ahora están aquí dentro
     Route::get('/admin', function () {
         return redirect()->route('planes.index');
-    })->name('admin'); // Le damos un nombre a la ruta
+    })->name('dashboard'); // Le damos un nombre a la ruta
 
     Route::prefix('admin')->group(function () {
         Route::resource('/planes', PlanController::class)->names('planes');

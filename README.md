@@ -8,11 +8,30 @@ OnNutrive es una aplicación web diseñada para la gestión de planes de nutrici
 
 ## ✨ Características Principales
 
-*   **Autenticación de Usuarios:** Sistema completo de registro e inicio de sesión.
+*   **Autenticación de Usuarios:** Sistema completo de registro e inicio de sesión con Laravel Breeze.
 *   **Gestión de Perfil:** Los usuarios pueden actualizar su información personal.
 *   **Visualización de Planes:** Interfaz para mostrar diferentes planes de nutrición.
-*   **Panel de Control de Usuario:** Dashboard personalizado para cada usuario.
+*   **Panel de Administración:** Área protegida para la gestión de contenido (Planes).
 *   **Diseño Responsivo:** Adaptable a dispositivos móviles y de escritorio.
+
+---
+
+## 🔑 Panel de Administración
+
+El proyecto incluye un panel de administración para gestionar el contenido de la plataforma.
+
+### Acceso
+
+*   **URL:** `/admin`
+*   Para acceder, es necesario registrarse en la aplicación e iniciar sesión. Actualmente, cualquier usuario registrado puede acceder al panel.
+
+### Funcionalidades
+
+El panel de administración permite la gestión completa (Crear, Leer, Actualizar, Eliminar - CRUD) de los **Planes de Nutrición**.
+
+*   **Listar Planes:** `/admin/planes`
+*   **Crear un Plan:** `/admin/planes/create`
+*   **Editar un Plan:** Desde el listado, selecciona la opción "Editar".
 
 ---
 
@@ -25,12 +44,11 @@ La plataforma utiliza las siguientes tecnologías:
     *   [Laravel](https://laravel.com/) - Framework de PHP
     *   [Composer](https://getcomposer.org/) - Manejador de dependencias de PHP
 *   **Frontend:**
-    *   [Vite](https://vitejs.dev/) - Herramienta de compilación de frontend
-    *   [Tailwind CSS](https://tailwindcss.com/) - Framework de CSS
-    *   [Alpine.js](https://alpinejs.dev/) - Framework minimalista de JavaScript
-    *   [Bootstrap](https://getbootstrap.com/) - Framework de CSS y JS
+    *   [Vite](https://vitejs.dev/) - Herramienta de compilación de frontend.
+    *   [Bootstrap](https://getbootstrap.com/) - Framework principal de CSS y JS para la interfaz.
+    *   [Laravel Breeze](https://laravel.com/docs/11.x/starter-kits#laravel-breeze) para la autenticación, cuyos componentes base usan **Tailwind CSS** y **Alpine.js**.
 *   **Base de Datos:**
-    *   [SQLite](https://www.sqlite.org/) (por defecto en desarrollo)
+    *   [SQLite](https://www.sqlite.org/) (por defecto en desarrollo).
     *   Compatible con MySQL, PostgreSQL, etc.
 
 ---
@@ -119,3 +137,5 @@ A continuación, se describe la función de los directorios más importantes del
 ## 📄 Licencia
 
 Este proyecto no tiene una licencia definida. Se recomienda añadir un archivo `LICENSE` si se va a distribuir.
+
+---
