@@ -35,7 +35,13 @@ class PageController extends Controller
     // 2. Pasamos los datos ya transformados a la vista.
     return view('planes.planes', ['planes' => $planesParaLaVista]);
 }
-    // Aquí podrías añadir métodos para otras páginas:
-    // public function nosotros(): View { return view('nosotros'); }
-    // public function planes(): View { return view('planes'); }
+    public function viandas(): View
+    {
+        return view('viandas.viandas');
+    }
+
+    public function pasteleria(): View
+    {
+        return view('pasteleria.pasteleria');
+    }
 }

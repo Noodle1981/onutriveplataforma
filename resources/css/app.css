@@ -1,242 +1,158 @@
-@import 'bootstrap/dist/css/bootstrap.css';
+/*
+================================================================
+ ARCHIVO CSS CONSOLIDADO Y LIMPIO PARA EL PROYECTO ONNUTRIVE (VERSIÓN FINAL)
+================================================================
+*/
 
-
-/* =================================================== */
-/* 2. NAVBAR (Estilos personalizados)                  */
-/* =================================================== */
-
-/* --- Estilo Base del Navbar (Efecto "vidrio" sobre el hero) --- */
-.navbar-glass {
-    /* Estilos iniciales cuando está sobre el video/hero */
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.4s ease-out;
+/* 1. CONFIGURACIÓN GLOBAL Y VARIABLES */
+:root {
+    --brand-green: #124735;
+    --brand-gold: #DABD85;
+    --brand-accent: #DA4735;
+    --brand-cream: #fdfaf5;
+    --brand-dark: #333333;
+    --font-title: 'Nunito', sans-serif;
+    --font-body: 'Nunito', sans-serif;
 }
 
-/* --- Estilos cuando se hace scroll --- */
-.navbar-scrolled {
-    /* El fondo se vuelve más opaco y sólido */
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* --- Estilo de los links --- */
-.nav-link {
-    position: relative;
-    padding-bottom: 8px; /* Espacio para el subrayado */
-    font-weight: 600;
-    transition: color 0.3s ease;
-    color: #555; /* Color por defecto para estado "scrolled" */
-}
-
-.navbar-glass:not(.navbar-scrolled) .nav-link {
-    color: var(--nutrive-gold); /* Color dorado sobre el video */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-}
-
-.nav-link:hover, .nav-link.active {
-    color: #0f4d36; /* Verde oscuro en hover o activo */
-}
-
-/* Subrayado animado */
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 3px;
-    background-color: #0f4d36;
-    transition: width 0.3s ease-in-out;
-}
-
-.nav-link:hover::after, .nav-link.active::after {
-    width: 100%;
-}
-
-/* --- Botón CTA con forma de pincelada --- */
-.cta-brush-button {
-    background-image: url('../img/retazo3.PNG'); /* Ajusta la ruta si es necesario */
-    background-size: contain;
-    background-repeat: no-repeat;
+/* 2. ESTILOS GLOBALES DEL BODY */
+body {
+    font-family: var(--font-body);
+    background-image: url('https://images.pexels.com/photos/164005/pexels-photo-164005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-size: cover;
+    background-attachment: fixed;
     background-position: center;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 420px;
-    height: 90px;
-    color: var(--nutrive-red);
-    font-weight: 800;
-    text-decoration: none;
-    font-size: 1.5rem;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.cta-brush-button:hover {
-    color: var(--nutrive-gold);
-    transform: scale(1.05) rotate(-2deg);
-}
-
-/* --- Detalles decorativos del Navbar --- */
-.nav-decoration {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 300px;
-    background-repeat: no-repeat;
-    opacity: 1;
-    z-index: -1;
-    pointer-events: none;
-    transition: opacity 0.4s ease-out;
-}
-
-.nav-decoration--left {
-    left: 0;
-    background-image: url('../img/retazo2.png'); /* Ajusta la ruta */
-    background-position: top left;
-    background-size: contain;
-}
-
-.nav-decoration--right {
-    right: 0;
-    background-image: url('../img/retazo1.png'); /* Ajusta la ruta */
-    background-position: top right;
-    background-size: contain;
-}
-
-/* Ocultar decoraciones cuando se hace scroll */
-.navbar-scrolled .nav-decoration {
-    opacity: 0;
-}
-
-/* Ocultar decoraciones en móviles */
-@media (max-width: 1024px) {
-    .nav-decoration {
-        display: none;
-    }
-}
-
-/* =================================================== */
-/* 3. HERO                                             */
-/* =================================================== */
-.hero-video-background {
+    color: var(--brand-dark);
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
-#bgvideo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: 0;
-    object-fit: cover;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(10, 71, 53, 0.3);
-    z-index: 1;
-}
-
-/* =================================================== */
-/* 4. SECCIONES GENERALES (Títulos, botones, etc.)     */
-/* =================================================== */
-.section-title {
-    font-family: var(--font-title, 'Nunito', sans-serif);
-    font-weight: 800;
-    font-size: 2.5rem;
-    color: var(--brand-green, #124735);
-    line-height: 1.2;
-}
-
-.section-subtitle {
-    font-size: 1.125rem;
-    color: #6c757d;
-    max-width: 600px;
-    margin: 1rem auto 0;
-}
-
-/* --- Animación Plato Flotante --- */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
-}
-
-.animate-float {
-    animation: float 6s ease-in-out infinite;
-}
-
-/* --- Botones CTA --- */
-.cta-button-secondary {
-    display: inline-block;
-    background-color: transparent;
-    color: var(--brand-green);
-    border: 2px solid var(--brand-gold, #DABD85);
-    font-weight: 700;
-    padding: 0.75rem 1.75rem;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-.cta-button-secondary:hover {
-    background-color: var(--brand-gold, #DABD85);
-    color: var(--brand-green);
-    transform: translateY(-2px);
-}
-
-.cta-button-whatsapp {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #25D366;
-    color: white;
-    font-size: 1.125rem;
-    font-weight: 700;
-    padding: 1rem 2.5rem;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-.cta-button-whatsapp:hover {
-    background-color: #1EBE57;
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-}
-
-/* --- Estilos Tarjetas Features --- */
-
+/* 3. CLASES DE UTILIDAD GENERAL (TÍTULOS Y TEXTOS) */
 .section-title {
     font-family: var(--font-title);
     font-weight: 800;
-    font-size: 2.25rem;
+    font-size: 2.5rem;
     color: var(--brand-green);
     line-height: 1.2;
 }
+.section-subtitle {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 1rem auto 0;
+}
+.alimentos-text {
+    font-weight: 700;
+    color: #2b453e;
+    font-size: clamp(2.5rem, 6vw, 2.9rem);
+    line-height: 0.9;
+    letter-spacing: 0.2px;
+}
+.activan-text .text-gold {
+    font-weight: 800;
+    color: #d4b588;
+    font-size: clamp(4rem, 12vw, 5.4rem);
+    line-height: 1;
+    margin-top: -0.5rem;
+    letter-spacing: -1px;
+}
+@media (min-width: 768px) {
+    .section-title { font-size: 2.75rem; }
+}
+
+/* NAVEGACIÓN (NAVBAR) */
+.navbar { transition: all 0.3s ease-in-out; }
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border-bottom: 1px solid #e5e7eb;
+}
+.navbar .nav-link {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: white;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+.navbar.scrolled .nav-link { color: var(--brand-green); }
+.navbar.scrolled .nav-link:hover, .navbar.scrolled .nav-link.active { color: var(--brand-accent); }
+.navbar .nav-link::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px; background-color: var(--brand-accent);
+    transition: width 0.3s ease-in-out;
+}
+.navbar .nav-link:hover::after, .navbar .nav-link.active::after { width: 100%; }
+.navbar-toggler { border: none; }
+.navbar-toggler:focus { box-shadow: none; }
+
+/* BOTONES (CALL TO ACTION) */
+.cta-button {
+    background-color: var(--brand-accent); color: white;
+    font-family: var(--font-body); font-weight: 700;
+    padding: 0.75rem 1.75rem; border-radius: 9999px;
+    text-decoration: none; transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+.cta-button:hover {
+    color: white; background-color: #c94030;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+.cta-button-secondary {
+    display: inline-block; background-color: transparent;
+    color: var(--brand-green); border: 2px solid var(--brand-gold);
+    font-family: var(--font-body); font-weight: 700;
+    padding: 0.65rem 1.75rem; border-radius: 9999px;
+    text-decoration: none; transition: all 0.3s ease;
+}
+.cta-button-secondary:hover {
+    background-color: var(--brand-gold);
+    color: var(--brand-green);
+    transform: translateY(-2px);
+}
+.cta-button-whatsapp {
+    display: inline-flex; align-items: center; justify-content: center;
+    background-color: #25D366; color: white;
+    font-family: var(--font-body); font-size: 1.125rem; font-weight: 700;
+    padding: 1rem 2.5rem; border-radius: 9999px;
+    text-decoration: none; transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.cta-button-whatsapp:hover {
+    color: white; background-color: #1EBE57;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* SECCIÓN HERO (VIDEO) */
+.hero-video-background {
+    height: 100vh; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+}
+#bgvideo {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%; min-height: 100%;
+    z-index: 0; object-fit: cover;
+}
+.hero-overlay {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(18, 71, 53, 0.4);
+    z-index: 1;
+}
+
+/* SECCIÓN DE CARACTERÍSTICAS (FEATURES) */
+
 .feature-card-unified {
     position: relative;
     margin-bottom: 120px;
     display: flex;
     align-items: center;
     padding: 2rem;
-    background-color: #FFFFFF;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
 }
 .feature-image-wrapper {
     flex: 0 0 40%; 
@@ -273,38 +189,59 @@
 }
 .feature-title { font-weight: 800; font-size: 2.5rem; }
 .feature-subtitle { font-size: 1.1rem; margin-bottom: 2rem; }
+.feature-list { list-style: none; padding-left: 0; margin: 0; }
 .feature-list li { display: flex; align-items: center; margin-bottom: 1rem; font-size: 1.1rem; }
-.feature-list li i { font-size: 1.5rem; min-width: 28px; color: var(--nutrive-red); }
+.feature-list li i { font-size: 1.5rem; min-width: 28px; }
 
-/* --- Responsive --- */
+/* ---  CLARO (DEFAULT) --- */
+#features-light { background-color: var(--background-cream); }
+.feature-card-unified {
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);}
+#features-light .feature-subtitle { color: var(--text-muted); }
+#features-light .feature-list li { color: #495057; }
+#features-light .feature-list li i { color: var(--nutrive-red); }
+
+
+
+section[id*="features-"] {
+    background-color: var(--background-cream);
+}
+
+/* --- Responsive (Aplica a todos los temas) --- */
 @media (max-width: 991.98px) {
-    .feature-card-unified, .feature-card-unified--reverse { flex-direction: column !important; margin-bottom: 100px; text-align: center !important; }
+    .feature-card-unified, .feature-card-unified--reverse { flex-direction: column !important; margin-bottom: 100px; }
     .feature-image-wrapper { width: 100%; margin-top: -100px; }
     .feature-image-wrapper img { width: 100%; transform: translateX(0) !important; }
-    .feature-card-content, .feature-card-unified--reverse .feature-card-content { width: 100%; padding: 0; margin-top: 1rem; }
+    .feature-card-content, .feature-card-unified--reverse .feature-card-content { width: 100%; padding: 0; margin-top: 1rem; text-align: center !important; }
     .feature-list, .feature-card-unified--reverse .feature-list { text-align: left; display: inline-block; }
     .feature-card-unified--reverse .feature-list li { justify-content: flex-start; }
     .feature-card-unified--reverse .feature-list li i { margin-left: 0; margin-right: 15px; order: 0; }
 }
 
-/* --- Detalles decorativos con pseudo-elementos --- */
+/* Usamos pseudo-elementos para los retazos, aplicados solo a las tarjetas con la clase '.with-details' */
 .feature-card-unified.with-details::before,
 .feature-card-unified.with-details::after {
     content: '';
     position: absolute;
     background-size: contain;
     background-repeat: no-repeat;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.5s 0.3s ease, transform 0.5s 0.3s ease;
+    z-index: -1; /* Los ponemos DETRÁS de la tarjeta */
+    opacity: 0; /* Empiezan invisibles */
+    transition: opacity 0.5s 0.3s ease, transform 0.5s 0.3s ease; /* Transición con retraso */
 }
+
+/* Animación de entrada para los retazos */
 .feature-card-unified.with-details.is-visible::before,
 .feature-card-unified.with-details.is-visible::after {
     opacity: 1;
     transform: scale(1);
 }
+
+/* --- Retazos para la tarjeta normal --- */
 .feature-card-unified.with-details::before {
-    background-image: url('../../public/img/retazo2.PNG'); /* Ajusta la ruta si es necesario */
+    background-image: url('../img/retazo2.PNG'); /* El de arriba LISTO */
     width: 200px;
     height: 200px;
     top: -80px;
@@ -312,103 +249,162 @@
     transform: scale(0.8) rotate(-15deg);
 }
 .feature-card-unified.with-details::after {
-    background-image: url('../../public/img/retazo4.PNG'); /* Ajusta la ruta si es necesario */
+    background-image: url('../img/retazo4.PNG'); /* El de abajo LISTO */
     width: 250px;
     height: 250px;
     bottom: -10px;
     right: -235px;
     transform: scale(0.8) rotate(10deg);
 }
+
+/* --- Retazos para la tarjeta invertida (zig-zag) --- */
 .feature-card-unified.with-details.feature-card-unified--reverse::before {
-    background-image: url('../../public/img/retazo3.PNG'); /* Ajusta la ruta si es necesario */
+    background-image: url('../img/retazo3.PNG');
     width: 200px;
     height: 200px;
     top: -145px;
-    right: -50px;
+    right: -50px; /* Cambia de 'left' a 'right' */
     left: auto;
     transform: scale(0.8) rotate(0deg);
 }
 .feature-card-unified.with-details.feature-card-unified--reverse::after {
-    background-image: url('../../public/img/retazo1.PNG'); /* Ajusta la ruta si es necesario */
+    background-image: url('../img/retazo1.PNG');
     width: 250px;
     height: 250px;
     bottom: -40px;
-    left: -110px;
+    left: -110px; /* Cambia de 'right' a 'left' */
     right: auto;
     transform: scale(0.8) rotate(-10deg);
 }
 
 
 
+.hero-content { position: relative; z-index: 2; }
 
-/* (Pseudo-elementos para detalles, si los necesitas) */
+/* 7. TARJETAS DE PRESENTACIÓN (SHOWCASE) */
+.showcase-section { padding-top: 5rem; padding-bottom: 5rem; position: relative; }
+.showcase-container {
+    display: grid; grid-template-columns: 1fr; align-items: center;
+    gap: 1rem; position: relative; margin-bottom: 5rem; z-index: 5;
+}
+.showcase-image {
+    position: relative; z-index: 10;
+    filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.2));
+    padding: 0 1.5rem;
+}
+.showcase-image img {
+    width: 100%; max-width: 400px; margin: 0 auto;
+    display: block; border-radius: 50%; aspect-ratio: 1/1; object-fit: cover;
+}
+.showcase-content {
+    background-color: var(--brand-cream); color: var(--brand-dark);
+    border-radius: 1.5rem; padding: 4rem 2rem 2rem;
+    text-align: center; margin-top: -80px;
+    z-index: 5; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+.showcase-title {
+    font-family: var(--font-title); font-size: 3.5rem;
+    font-weight: 800; color: var(--brand-green);
+}
+.showcase-subtitle {
+    font-size: 1.1rem; color: var(--brand-dark);
+    margin-top: 0.5rem; margin-bottom: 2rem;
+}
+@media (min-width: 992px) {
+    .showcase-container { grid-template-columns: repeat(12, 1fr); gap: 0; margin-bottom: 8rem; }
+    .showcase-image { grid-column: 1 / span 6; grid-row: 1; padding: 0; }
+    .showcase-image img { max-width: none; }
+    .showcase-content {
+        grid-column: 5 / span 8; grid-row: 1;
+        padding: 3rem 3rem 3rem 23rem;
+        text-align: left; margin-top: 0;
+    }
+    .showcase-container--reverse .showcase-image { grid-column: 7 / span 6; }
+    .showcase-container--reverse .showcase-content {
+        grid-column: 1 / span 8;
+        padding: 3rem 19rem 3rem 9rem;
+    }
+}
 
-/* =================================================== */
-/* 8. ANIMACIONES GLOBALES                             */
-/* =================================================== */
+/* SECCIÓN INTERACTIVA DE PASOS */
+.steps-timeline { padding-top: 25vh; padding-bottom: 25vh; }
+.step-text-block { min-height: 70vh; position: relative; padding-bottom: 2rem; }
+.steps-visuals {
+    position: sticky; top: 20vh; height: 60vh;
+    display: flex; justify-content: flex-start; align-items: center;
+    overflow: hidden;
+}
+@keyframes slideInFromRight {
+    from { opacity: 0; transform: translateX(100%); }
+    to { opacity: 1; transform: translateX(0); }
+}
+.step-image {
+    position: absolute; width: 100%; max-width: 500px; opacity: 0;
+}
+.step-image.is-active { animation: slideInFromRight 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.step-image img {
+    width: 100%; height: auto; object-fit: contain;
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
+}
+.svg-path {
+    position: absolute; top: 0; left: 20%; transform: translateX(-50%);
+    height: 100%; width: 100px; z-index: -1; stroke: var(--brand-gold);
+    stroke-dasharray: 1000; stroke-dashoffset: 1000;
+    transition: stroke-dashoffset 0.8s ease-in-out;
+}
+.step-text-block h3::before {
+    position: absolute; top: -0.2em; left: 0; font-size: 4rem;
+    font-weight: 900; color: var(--brand-gold); opacity: 0.5; line-height: 1;
+}
+.steps-timeline .step-text-block:nth-child(1) h3::before { content: '1.'; }
+.steps-timeline .step-text-block:nth-child(2) h3::before { content: '2.'; }
+.steps-timeline .step-text-block:nth-child(3) h3::before { content: '3.'; }
+
+/* FOOTER */
+.footer { background-color: var(--brand-cream); color: var(--brand-dark); }
+.footer-title {
+    font-family: var(--font-title); font-weight: 700;
+    color: var(--brand-green); margin-bottom: 1rem;
+}
+.footer-links {
+    list-style: none; padding: 0; display: flex;
+    flex-direction: column; gap: 0.5rem;
+}
+.footer-links li { display: flex; align-items: center; justify-content: center; }
+@media (min-width: 992px) { .footer-links li { justify-content: flex-start; } }
+.footer-links a { text-decoration: none; color: #4b5563; transition: color 0.3s ease; }
+.footer-links a:hover { color: var(--brand-accent); }
+.social-icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    background-color: #fff; border: 1px solid #e5e7eb; color: var(--brand-green);
+    display: inline-flex; align-items: center; justify-content: center;
+    text-decoration: none; transition: all 0.3s ease;
+}
+.social-icon:hover {
+    background-color: var(--brand-green); color: white; transform: scale(1.1);
+}
+
+/* ANIMACIONES GLOBALES */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+    filter: drop-shadow(0 25px 25px rgba(0,0,0,0.15));
+}
 .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    opacity: 0; transform: translateY(60px) scale(0.95);
+    transition: opacity 0.8s cubic-bezier(0.65, 0.84, 0.44, 1), transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition-delay: var(--animation-delay, 0s);
 }
-.animate-on-scroll.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* =================================================== */
-/* 7. FOOTER                                           */
-/* =================================================== */
-
-.footer-title {
-    font-family: var(--font-title, 'Nunito', sans-serif);
-    font-weight: 700;
-    color: var(--brand-green, #124735);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-}
-
-.footer-links li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-links a {
-    text-decoration: none;
-    color: #6c757d; /* color .text-muted de Bootstrap */
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: var(--brand-accent, #DA4735);
-}
-
-.social-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #f8f9fa; /* color .bg-light de Bootstrap */
-    color: var(--brand-green, #124735);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.social-icon:hover {
-    background-color: var(--brand-green, #124735);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
+.animate-on-scroll.is-visible { opacity: 1; transform: translateY(0) scale(1); }
 
 
-/* ... otros estilos existentes en app.css ... */
+/* PlANES */
 
+/* Variables de color específicas para la sección de planes ELIMINAR :ROOT, BODY YA ESTÁ ARRIBA */
 :root {
     --nutrive-green: #0a4735;
     --nutrive-red: #e73940;
@@ -458,14 +454,16 @@ h1.display-4 {
 
 /* Contenedor de miniaturas ajustado para 2 filas */
 .hybridCarouselThumbs {
-    height: 260px; /* Mayor altura para dos filas */
+    height: 260px;
+    /* Mayor altura para dos filas */
     box-sizing: border-box;
     padding: 10px 0;
     margin-top: 10px;
 }
 
 .hybridCarouselThumbs .swiper-slide {
-    height: calc((100% - 20px) / 2); /* Calcula la altura de la fila */
+    height: calc((100% - 20px) / 2);
+    /* Calcula la altura de la fila */
     opacity: 0.4;
     cursor: pointer;
     border-radius: 10px;
@@ -526,96 +524,7 @@ h1.display-4 {
     font-size: 1.2rem;
 }
 
-
-/* --- Estilos para la Sección de Pasos Interactivos --- */
-.steps-timeline {
-    padding-top: 25vh; /* Empuja el primer texto hacia abajo */
-    padding-bottom: 25vh; /* Espacio al final */
-}
-
-.step-text-block {
-    min-height: 70vh; /* Da a cada bloque de texto suficiente altura para scrollear */
-    position: relative;
-    padding-bottom: 2rem;
-}
-
-.steps-visuals {
-    position: sticky;
-    top: 20vh;
-    height: 60vh;
-    display: flex;
-    justify-content: flex-start; 
-    align-items: center;
-    /* ¡CAMBIO CLAVE! Esto oculta la imagen cuando está fuera del contenedor. */
-    overflow: hidden;
-}
-
-@keyframes slideInFromRight {
-    from {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.step-image {
-    position: absolute;
-    width: 100%;
-    max-width: 500px;
-    opacity: 0;
-}
-
-.step-image.is-active {
-    animation: slideInFromRight 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-.step-image img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
-}
-
-.svg-path {
-    position: absolute;
-    top: 0;
-    left: 20%;
-     /* Ajustamos la posición de la línea para que quede mejor con la imagen a la izquierda */
-    transform: translateX(-50%);
-    height: 100%;
-    width: 100px;
-    z-index: -1;
-    stroke: var(--brand-gold, #DABD85);
-    
-    /* La magia para "dibujar" la línea */
-    stroke-dasharray: 1000; /* Longitud total estimada del path */
-    stroke-dashoffset: 1000;
-    transition: stroke-dashoffset 0.8s ease-in-out;
-}
-
-step-text-block h3::before {
-    position: absolute;
-    top: -0.2em; 
-    left: 0;
-    font-size: 4rem; 
-    font-weight: 900; 
-    color: var(--brand-gold, #DABD85);
-    opacity: 0.5; 
-    line-height: 1;
-}
-
-/* --- Asignamos el número a cada paso --- */
-.steps-timeline .step-text-block:nth-child(1) h3::before {
-    content: '1. ';
-}
-
-.steps-timeline .step-text-block:nth-child(2) h3::before {
-    content: '2.  ';
-}
-
-.steps-timeline .step-text-block:nth-child(3) h3::before {
-    content: '3. ';
+#contacto {
+    background-color: var(--nutrive-green);
+    padding: 50px 0;
 }

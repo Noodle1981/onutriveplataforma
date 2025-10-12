@@ -12,7 +12,7 @@
 
                 <!-- Tarjeta 1: Viandas -->
                 <div class="feature-card-unified with-details animate-on-scroll">
-                    <div class="feature-image-wrapper">
+                    <div id="viandas" class="feature-image-wrapper">
                         {{-- Usamos el helper asset() para la imagen --}}
                         <img src="{{ asset('img/patamuslo.png') }}" alt="Plato de vianda saludable">
                     </div>
@@ -25,12 +25,15 @@
                             <li><i class="bi bi-fire"></i> Preparaciones al horno o hervidas</li>
                             <li><i class="bi bi-truck"></i> Directo a la puerta de tu casa</li>
                         </ul>
+                        <div class="mt-5 text-center animate-on-scroll">
+                                <a href="{{ route('viandas.public') }}" class="cta-button">Pedir Ahora</a>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Tarjeta 2: Pastelería -->
                 <div class="feature-card-unified feature-card-unified--reverse with-details animate-on-scroll">
-                    <div class="feature-image-wrapper">
+                    <div id="pasteleria" class="feature-image-wrapper">
                         {{-- Usamos el helper asset() para la imagen --}}
                         <img src="{{ asset('img/pastel.png') }}" alt="Pastelería saludable">
                     </div>
@@ -38,11 +41,14 @@
                         <h2 class="feature-title">Pastelería</h2>
                         <p class="feature-subtitle text-muted">La energía que necesitás, de forma inteligente.</p>
                         <ul class="feature-list list-unstyled">
-                            <li><i class="bi bi-lightning-charge-fill"></i> Energía para tus pausas activas</li>
-                            <li><i class="bi bi-palette-fill"></i> Opciones dulces y saladas</li>
-                            <li><i class="bi bi-tree-fill"></i> Ingredientes 100% naturales</li>
-                            <li><i class="bi bi-bicycle"></i> Ideales para pre y post entreno</li>
+                                <li><i class="bi bi-lightning-charge-fill"></i> Energía para tus pausas activas</li>
+                                <li><i class="bi bi-palette-fill"></i> Opciones dulces y saladas</li>
+                                <li><i class="bi bi-tree-fill"></i> Ingredientes 100% naturales</li>
+                                <li><i class="bi bi-bicycle"></i> Ideales para pre y post entreno</li>
                         </ul>
+                    <div class="mt-5 text-center animate-on-scroll">
+                                <a href="{{ route('pasteleria.public') }}" class="cta-button">Reservar Ahora</a>
+                    </div>
                     </div>
                 </div>
 

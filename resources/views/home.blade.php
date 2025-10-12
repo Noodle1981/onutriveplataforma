@@ -13,12 +13,8 @@
     {{-- 3. Sección de Features (Viandas y Pastelería) --}}
     @include('pages.home._features')
 
-    {{-- 4. SECCIÓN INTERACTIVA DE PASOS --}}
-    @include('pages.home._steps-interactive')
-
-
-    {{-- 4 b. NUEVA SECCIÓN DE PASOS --}}
-    @include('pages.home._steps')
+    {{-- 4. Sección de Features (Viandas y Pastelería) --}}
+    @include('pages.home._planes')
 
     {{-- 5. Sección "Quiénes Somos" --}}
     @include('pages.home._nosotros')

@@ -14,3 +14,5 @@
         </div>
     </div>
 </section>
+
+{{-- SECCIÓN "ALIMENTOS QUE ACTIVAN" --}}

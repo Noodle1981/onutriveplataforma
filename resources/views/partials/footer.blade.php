@@ -1,66 +1,43 @@
-{{-- resources/views/partials/footer.blade.php --}}
-
-<footer class="bg-white border-top">
-    <div class="container py-5">
-        <div class="row gy-4 text-center text-lg-start">
-
-            <!-- Columna 1: Logo e Info -->
-            <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center align-items-lg-start">
-                <a href="{{ url('/') }}">
-                    <img src="{{ asset('img/logobanner.png') }}" alt="Onnutrive Logo" style="height: 48px;" class="mb-3">
-                </a>
-                <p class="text-muted small">Alimentos que activan.</p>
-            </div>
-
-            <!-- Columna 2: Explorar -->
-            <div class="col-lg-3 col-md-6">
-                <h4 class="footer-title">Explorar</h4>
-                <ul class="list-unstyled footer-links">
-                    <li><a href="{{ url('/nosotros') }}">Quiénes Somos</a></li>
-                    <li><a href="{{ url('/servicios') }}">Servicios</a></li>
-                    <li><a href="{{ url('/planes') }}">Planes</a></li>
-                    <li><a href="{{ route('login') }}">Iniciar Sesión (Admin)</a></li>
-                </ul>
-            </div>
-
-            <!-- Columna 3: Legal -->
-            <div class="col-lg-3 col-md-6">
-                <h4 class="footer-title">Legal</h4>
-                <ul class="list-unstyled footer-links">
-                    <li><a href="{{ url('/terminos') }}">Términos y Condiciones</a></li>
-                    <li><a href="{{ url('/privacidad') }}">Política de Privacidad</a></li>
-                </ul>
-            </div>
-
-            <!-- Columna 4: Contacto y Redes Sociales -->
-            <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center align-items-lg-start">
-                <h4 class="footer-title">Contacto</h4>
-                <ul class="list-unstyled text-muted">
-                    <li class="d-flex align-items-center mb-2">
-                        <i class="bi bi-geo-alt-fill text-success fs-5 me-2"></i>
-                        <span>Paula Albarracín 727 sur, San Juan</span>
-                    </li>
-                    <li class="d-flex align-items-center mb-2">
-                        <i class="bi bi-whatsapp text-success fs-5 me-2"></i>
-                        <span>264 582 0093</span>
-                    </li>
-                </ul>
-                <div class="d-flex mt-3">
-                    <a href="#" class="social-icon me-2" aria-label="Instagram">
-                        <i class="bi bi-instagram"></i>
-                    </a>
-                    <a href="#" class="social-icon" aria-label="Facebook">
-                        <i class="bi bi-facebook"></i>
-                    </a>
+ <footer class="footer">
+            <div class="container py-5">
+                <div class="row g-4 text-center text-lg-start">
+                    <div class="col-lg-3 col-md-6">
+                        <img src="./img/logobanner.png" alt="Onnutrive Logo Color" style="height: 48px;" class="mx-auto mx-lg-0">
+                        <p class="mt-3 text-secondary">Alimentos que activan.</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="footer-title">Explorar</h4>
+                        <ul class="footer-links">
+                            <li><a href="#nosotros">Quiénes Somos</a></li>
+                            <li><a href="#viandas">Servicios</a></li>
+                            <li><a href="#planes">Planes</a></li>
+                            <li><a href="{{ route('login') }}">Panel de Administración</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="footer-title">Legal</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">Términos y Condiciones</a></li>
+                            <li><a href="#">Política de Privacidad</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="footer-title">Contacto</h4>
+                        <ul class="footer-links">
+                            <li><i class="bi bi-geo-alt-fill me-2"></i>Paula Albarracín 727 sur, San Juan</li>
+                            <li><i class="bi bi-whatsapp me-2"></i>264 582 0093</li>
+                        </ul>
+                        <div class="mt-3">
+                            <a href="#" class="social-icon me-2"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-top mt-5 pt-4 text-center text-secondary small">
+                    <p>&copy; <span id="year"></span> Onnutrive. Todos los derechos reservados.</p>
+                    <p class="mt-1">Desarrollado por Grupo Xamanen</p>
                 </div>
             </div>
+        </footer>
 
-        </div>
-
-        <!-- Separador y Copyright -->
-        <div class="mt-5 border-top pt-4 text-center text-muted small">
-            <p>&copy; <span id="copyright-year"></span> Onnutrive. Todos los derechos reservados.</p>
-            <p class="mt-1">Desarrollado por Grupo Xamanen</p>
-        </div>
-    </div>
-</footer>
+       

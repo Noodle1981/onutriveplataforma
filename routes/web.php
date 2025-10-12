@@ -8,7 +8,8 @@ use App\Http\Controllers\ProfileController; // Breeze añade este
 // ... (tus rutas públicas de home y planes.public se quedan como están) ...
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/planes', [PageController::class, 'planes'])->name('planes.public');
-
+Route::get('/viandas', [PageController::class, 'viandas'])->name('viandas.public');
+Route::get('/pasteleria', [PageController::class, 'pasteleria'])->name('pasteleria.public');
 
 // --- Rutas del Panel de Administración PROTEGIDAS ---
 Route::middleware(['auth', 'verified'])->group(function () {

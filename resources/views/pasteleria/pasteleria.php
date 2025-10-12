@@ -58,7 +58,7 @@
         <div class="text-center mt-5 pt-5">
             <h3 class="fw-bold">¿Ya te antojaste?</h3>
             <p class="text-muted">Entra a nuestro menú para elegir tu próxima comida.</p>
-            <a href="#contacto" class="btn btn-primary btn-lg mt-3">Quiero mi Vianda</a>
+            <a href="#contacto" class="btn btn-primary btn-lg mt-3">Quiero mi Pastel</a>
         </div>
     </div>
 </section>
@@ -66,4 +66,4 @@
 {{-- Incluimos el script de animación solo cuando se usa esta sección --}}
 @push('scripts')
     <script src="{{ asset('js/steps-animation.js') }}"></script>
-@endpush
+@endpush|

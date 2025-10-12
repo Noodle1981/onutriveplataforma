@@ -6,3 +6,5 @@
     </video>
     <div class="hero-overlay"></div>
 </main>
+
+{{-- HERO SECTION --}}
