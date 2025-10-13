@@ -13,40 +13,25 @@
                     <li class="nav-item"><a class="nav-link mx-3" href="{{ route('home') }}#planes">Planes</a></li>
                     <li class="nav-item"><a class="nav-link mx-3" href="{{ route('home') }}#nosotros">Sobre Nosotros</a></li>
                 </ul>
-                <div class="d-none d-lg-block">
+                <div class="d-lg-none text-center pt-3">
                     <a href="#contacto" class="cta-button">Pedir Ahora</a>
                 </div>
-                 <div class="d-lg-none text-center pt-3">
-                    <a href="#contacto" class="cta-button">Pedir Ahora</a>
-                </div>
-
                 @auth
-                    {{-- Menú Desplegable para Usuario Autenticado (Bootstrap) --}}
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ Auth::user()->name }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Mi Perfil</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                {{-- Formulario para Cerrar Sesión --}}
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); this.closest('form').submit();">
-                                        Cerrar Sesión
-                                    </a>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                @else
+    {{-- VISTA PARA USUARIOS AUTENTICADOS --}}
+    <div class="d-none d-lg-flex align-items-center">
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-primary me-3">Panel Admin</a>
+        <span class="navbar-text me-3">Hola, {{ Str::words(Auth::user()->name, 1, '') }}</span>
+        
+        {{-- ¡AQUÍ VA EL FORMULARIO DE LOGOUT! --}}
+        <form method="POST" action="{{ route('logout') }}" class="d-inline">
+            @csrf
+            <button type="submit" class="btn btn-sm btn-outline-danger">Salir</button>
+        </form>
+    </div>
+    {{-- Y también en la vista móvil si es necesario --}}
+@else
                     {{-- Botón para Invitados (tu código original se mantiene) --}}
                     <div class="d-none d-lg-block">
-                        <a href="#contacto" class="cta-button">Pedir Ahora</a>
-                    </div>
-                     <div class="d-lg-none text-center pt-3">
                         <a href="#contacto" class="cta-button">Pedir Ahora</a>
                     </div>
                 @endauth

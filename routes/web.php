@@ -1,35 +1,70 @@
 <?php
-// routes/web.php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PlanController;
-use App\Http\Controllers\ProfileController; // Breeze añade este
+use App\Http\Controllers\Admin\PasteleriaController;
+use App\Http\Controllers\Admin\ProfileController; // ¡Importante!
 
-// ... (tus rutas públicas de home y planes.public se quedan como están) ...
+/*
+|--------------------------------------------------------------------------
+| RUTAS PÚBLICAS (Accesibles para todos)
+|--------------------------------------------------------------------------
+*/
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/planes', [PageController::class, 'planes'])->name('planes.public');
 Route::get('/viandas', [PageController::class, 'viandas'])->name('viandas.public');
 Route::get('/pasteleria', [PageController::class, 'pasteleria'])->name('pasteleria.public');
 
-// --- Rutas del Panel de Administración PROTEGIDAS ---
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);
+
+
+/*
+|--------------------------------------------------------------------------
+| RUTAS DE AUTENTICACIÓN (Para invitados que quieren entrar)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('planes', PlanController::class)->names('planes');
+    Route::resource('pasteleria', PasteleriaController::class)->names('pasteleria');
     
-    // Ruta para el perfil del usuario (creada por Breeze)
+    // Rutas para el perfil del administrador
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    // Tus rutas de administración ahora están aquí dentro
-    Route::get('/admin', function () {
-        return redirect()->route('planes.index');
-    })->name('dashboard'); // Le damos un nombre a la ruta
-
-    Route::prefix('admin')->group(function () {
-        Route::resource('/planes', PlanController::class)->names('planes');
-    });
-
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
 });
 
+// Ruta de Logout (Solo para usuarios autenticados)
+Route::post('logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
-// Esta línea la añade Breeze, déjala al final
-require __DIR__.'/auth.php';
+
+/*
+|--------------------------------------------------------------------------
+| RUTAS DEL PANEL DE ADMINISTRACIÓN (Protegidas)
+|--------------------------------------------------------------------------
+|
+|   Todas las rutas aquí dentro requieren que el usuario haya iniciado sesión.
+|   El prefijo 'admin' se añade automáticamente a la URL (ej. /admin/planes).
+|   El nombre de la ruta también se prefija (ej. admin.planes.index).
+|
+*/
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    // Apunta a tu nuevo DashboardController
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    // El CRUD de Planes sigue funcionando con su nueva estructura de vistas
+    Route::resource('planes', PlanController::class)->names('planes');
+    
+    // El CRUD de Pastelería se integra perfectamente
+    Route::resource('pasteleria', PasteleriaController::class)->names('pasteleria');
+});
+
+// Ruta para el tracking de clicks
+Route::post('/track-click', [ClickController::class, 'store'])->name('track.click');

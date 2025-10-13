@@ -1,18 +1,18 @@
 <?php
-// app/Models/Plan.php
-namespace App\Models;
+
+namespace App\Models; // <-- PRIMERA LÍNEA DE CÓDIGO
+
+// app/Models/Pasteleria.php <-- El comentario ahora está aquí, y es correcto.
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Plan extends Model
+class Pasteleria extends Model
 {
     use HasFactory;
 
-    // Nombre de la tabla en la base de datos
-    protected $table = 'planes';
+    protected $table = 'pasteleria';
 
-    // Campos que se pueden llenar desde un formulario
     protected $fillable = [
         'name',
         'image_path',

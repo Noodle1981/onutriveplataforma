@@ -1,6 +1,6 @@
 {{-- resources/views/home.blade.php --}}
 
-@extends('layout') {{-- O como se llame tu layout principal --}}
+@extends('layout')  {{-- O como se llame tu layout principal --}}
 
 @section('content')
 

@@ -25,6 +25,12 @@ body {
     color: var(--brand-dark);
     position: relative;
     overflow-x: hidden;
+    background-color: rgba(253, 250, 245, 0.9);
+}
+
+/* ESTILO PARA QUE EL CONTENIDO PRINCIPAL NO TAPE EL FONDO */
+main {
+    background-color: transparent !important;
 }
 
 /* 3. CLASES DE UTILIDAD GENERAL (TÍTULOS Y TEXTOS) */
@@ -404,19 +410,6 @@ section[id*="features-"] {
 
 /* PlANES */
 
-/* Variables de color específicas para la sección de planes ELIMINAR :ROOT, BODY YA ESTÁ ARRIBA */
-:root {
-    --nutrive-green: #0a4735;
-    --nutrive-red: #e73940;
-    --nutrive-gold: #e0c181;
-    --background-cream: #fdfaf5;
-}
-
-body {
-    font-family: 'Nunito', sans-serif;
-    color: #495057;
-    background-color: var(--background-cream);
-}
 
 h1.display-4 {
     color: var(--nutrive-green);
@@ -528,3 +521,8 @@ h1.display-4 {
     background-color: var(--nutrive-green);
     padding: 50px 0;
 }
+
+#planesSection {
+    padding: 50px 0;
+}
+

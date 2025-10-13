@@ -15,13 +15,13 @@ class PlanController extends Controller
     public function index(): View
     {
         $planes = Plan::latest()->get(); // Obtiene los planes, los más nuevos primero
-        return view('pages.admin.index', ['planes' => $planes]);
+        return view('admin.planes.index', compact('planes'));
     }
 
     // Muestra el formulario para crear un nuevo plan
     public function create(): View
     {
-        return view('pages.admin.create');
+        return view('admin.planes.create');
     }
 
     // Guarda el nuevo plan en la base de datos
@@ -29,24 +29,25 @@ class PlanController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'nullable|string', // <-- AÑADIR VALIDACIÓN
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
-        // Guarda la imagen y obtiene la ruta
         $imagePath = $request->file('image')->store('planes', 'public');
 
         Plan::create([
             'name' => $request->name,
+            'description' => $request->description, // <-- AÑADIR CAMPO AL CREAR
             'image_path' => $imagePath,
         ]);
 
-        return redirect()->route('planes.index')->with('success', 'Plan creado exitosamente.');
+        return redirect()->route('admin.planes.index')->with('success', 'Plan creado exitosamente.');
     }
 
     // Muestra el formulario para editar un plan existente
     public function edit(Plan $plan): View
     {
-        return view('pages.admin.edit', ['plan' => $plan]);
+         return view('admin.planes.edit', compact('plan'));
     }
 
     // Actualiza el plan en la base de datos
@@ -54,21 +55,21 @@ class PlanController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'nullable|string', // <-- AÑADIR VALIDACIÓN
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         $plan->name = $request->name;
+        $plan->description = $request->description; // <-- AÑADIR CAMPO AL ACTUALIZAR
 
         if ($request->hasFile('image')) {
-            // Borra la imagen antigua
             Storage::disk('public')->delete($plan->image_path);
-            // Guarda la nueva imagen
             $plan->image_path = $request->file('image')->store('planes', 'public');
         }
 
         $plan->save();
 
-        return redirect()->route('planes.index')->with('success', 'Plan actualizado exitosamente.');
+        return redirect()->route('admin.planes.index')->with('success', 'Plan actualizado exitosamente.');
     }
 
     // Elimina un plan

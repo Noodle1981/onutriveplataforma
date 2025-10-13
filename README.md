@@ -139,3 +139,17 @@ A continuación, se describe la función de los directorios más importantes del
 Este proyecto no tiene una licencia definida. Se recomienda añadir un archivo `LICENSE` si se va a distribuir.
 
 ---
+
+visualizaxion de datos
+
+Visualización en la Base de Datos
+Imagina que tu tabla planes en la base de datos se ve así después de haber añadido la columna description:
+id	name	description	image_path	created_at	updated_at
+1	Plan Fitness	Un plan diseñado para ganar músculo y energía.	planes/fitness.jpg	2023-10-27 10:00:00	2023-10-27 10:00:00
+2	Plan Detox	Ideal para limpiar tu cuerpo con jugos y ensaladas.	planes/detox.png	2023-10-27 10:05:00	2023-10-27 10:05:00
+3	Plan Balanceado	La combinación perfecta de todos los macronutrientes.	planes/balanceado.webp	2023-10-27 10:10:00	2023-10-27 10:10:00
+Como puedes ver, description es solo otro "atributo" o "característica" de cada Plan, al igual que su nombre.
+Lo mismo aplica para tu tabla pasteleria:
+id	name	description	image_path	created_at	updated_at
+1	Torta de Chocolate	Bizcocho húmedo con triple chocolate.	pasteleria/torta_choco.jpg	2023-10-27 11:00:00	2023-10-27 11:00:00
+2	Cheesecake de Frutos	Cremoso y con una base de galleta.	pasteleria/cheesecake.jpg	2023-10-27 11:05:00	2023-10-27 11:05:00

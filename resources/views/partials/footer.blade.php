@@ -11,7 +11,15 @@
                             <li><a href="#nosotros">Quiénes Somos</a></li>
                             <li><a href="#viandas">Servicios</a></li>
                             <li><a href="#planes">Planes</a></li>
-                            <li><a href="{{ route('login') }}">Panel de Administración</a></li>
+                            <li>
+                        @auth
+                            {{-- Si el usuario YA está autenticado, el enlace lo lleva al dashboard --}}
+                            <a href="{{ route('admin.dashboard') }}">Panel de Administración</a>
+                        @else
+                            {{-- Si es un invitado, el enlace lo lleva a la página de login --}}
+                            <a href="{{ route('login') }}">Panel de Administración</a>
+                        @endauth
+                        </li>
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-6">
