@@ -55,8 +55,15 @@
     
     {{-- PRIMERO: Define los datos para que estén disponibles globalmente --}}
     <script>
-        window.planData = @json($planes);
-    </script>  
+    window.carouselData = @json($planes->map(fn($plan) => [
+        'id' => $plan->id,
+        'nombre' => $plan->name,
+        'img' => asset('storage/' . $plan->image_path),
+        'wsp' => 'https://wa.me/...' . urlencode($plan->name),
+    ]));
+    // El 'type' debe ser el nombre exacto del Modelo, con mayúscula inicial
+    window.carouselType = 'Plan';
+</script>
 
     {{-- SEGUNDO: Carga el script que usará esos datos --}}
     <script src="{{ asset('js/hybrid-carousel-init.js') }}"></script>

@@ -6,10 +6,12 @@ namespace App\Models; // <-- PRIMERA LÍNEA DE CÓDIGO
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Click;
 
 class Pasteleria extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'pasteleria';
 
@@ -18,4 +20,8 @@ class Pasteleria extends Model
         'image_path',
         'description',
     ];
+    public function clicks()
+{
+    return $this->morphMany(Click::class, 'clickable');
+}
 }

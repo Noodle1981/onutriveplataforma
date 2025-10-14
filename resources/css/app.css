@@ -526,3 +526,17 @@ h1.display-4 {
     padding: 50px 0;
 }
 
+/* ============================================= */
+/*           ESTILOS DEL PANEL DE ADMIN          */
+/* ============================================= */
+
+.panel {
+    /* Usamos la variable de color que ya tienes definida */
+    background-color: var(--brand-cream); 
+    padding: 30px;
+}
+
+/* Opcional: Para que las tarjetas del dashboard resalten sobre el nuevo fondo */
+.panel .card {
+    border: 2; /* Quita el borde si lo tienen */
+}

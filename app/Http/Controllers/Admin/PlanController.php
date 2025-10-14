@@ -81,6 +81,6 @@ class PlanController extends Controller
         // Borra el registro de la base de datos
         $plan->delete();
 
-        return redirect()->route('planes.index')->with('success', 'Plan eliminado exitosamente.');
+        return redirect()->route('admin.planes.index')->with('success', 'Plan eliminado exitosamente.');
     }
 }

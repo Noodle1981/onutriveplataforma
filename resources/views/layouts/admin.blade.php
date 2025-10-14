@@ -4,21 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    {{-- Título dinámico para el panel, con un valor por defecto --}}
     <title>@yield('title', 'Panel de Administración') - Onnutrive</title>
 
     <!-- Bootstrap CSS y Icons (necesarios para el panel) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <!-- Tu hoja de estilos principal (para estilos compartidos) -->
-    @vite(['resources/css/app.css'])
+    {{-- =================== CAMBIO IMPORTANTE =================== --}}
+    {{--   Llamamos a @vite una sola vez con AMBOS archivos aquí   --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- ========================================================= --}}
 
-    <!-- Espacio para estilos específicos de cada página del admin -->
     @stack('styles')
 </head>
-<body>
+<body class="admin-bg">
 
     {{-- ========================================================= --}}
     {{--       BARRA DE NAVEGACIÓN EXCLUSIVA PARA EL ADMIN         --}}
@@ -36,7 +35,7 @@
 
             <div class="collapse navbar-collapse" id="adminNavbar">
                 {{-- Menú principal del panel --}}
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.planes.*') ? 'active' : '' }}" href="{{ route('admin.planes.index') }}">
                             Planes
@@ -48,7 +47,7 @@
                         </a>
                     </li>
                     {{-- Aquí puedes añadir más enlaces en el futuro (ej. Usuarios, Pedidos) --}}
-                </ul>
+                </ul> -->
 
                 {{-- Sección derecha con acciones de usuario --}}
                 <div class="d-flex align-items-center">
@@ -79,7 +78,6 @@
 
     <!-- Scripts de Bootstrap y otros globales -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    @vite(['resources/js/app.js'])
 
     <!-- Espacio para scripts específicos de cada página del admin -->
     @stack('scripts')

@@ -12,8 +12,8 @@
 <div class="container">
     <div class="container py-5" id="planesSection">
         <div class="text-center mb-5">
-            <h1 class="display-4 fw-bold">Nuestros Planes</h1>
-            <p class="lead text-muted">Selecciona un plan de la galería para ver los detalles.</p>
+            <h1 class="display-4 fw-bold">Nuestros Pasteles</h1>
+            <p class="lead text-muted">Selecciona un pastel de la galería para ver los detalles.</p>
         </div>
         
         <div class="hybrid-container">
@@ -53,11 +53,16 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
-    {{-- PRIMERO: Define los datos para que estén disponibles globalmente --}}
     <script>
-        window.planData = @json($planes);
-    </script>  
+    window.carouselData = @json($pasteles->map(fn($pastel) => [
+        'id' => $pastel->id,
+        'nombre' => $pastel->name,
+        'img' => asset('storage/' . $pastel->image_path),
+        'wsp' => 'https://wa.me/...' . urlencode($pastel->name), // No olvides el wsp
+    ]));
+    // El 'type' debe ser el nombre exacto del Modelo, con mayúscula inicial
+    window.carouselType = 'Pasteleria'; 
+</script>
 
-    {{-- SEGUNDO: Carga el script que usará esos datos --}}
     <script src="{{ asset('js/hybrid-carousel-init.js') }}"></script>
 @endpush

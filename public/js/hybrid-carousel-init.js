@@ -1,67 +1,76 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    // CAMBIO: Leemos los datos de una variable global genérica 'carouselData'
+    // 1. LEER DATOS GLOBALES
+    // Leemos los datos que pasamos desde Blade (el array de items y el tipo de modelo)
     const carouselData = window.carouselData || [];
+    const carouselType = window.carouselType || 'desconocido';
 
-    // --- Elementos del DOM ---
+    // 2. BUSCAR ELEMENTOS EN LA PÁGINA
     const carouselTopEl = document.querySelector('.hybridCarouselTop');
     const carouselThumbsEl = document.querySelector('.hybridCarouselThumbs');
     const planModalEl = document.getElementById('planModal');
 
-    // Si no existen los elementos del carrusel o el modal en la página, no hacemos nada.
+    // Si no estamos en una página con carrusel, no hacemos nada más.
     if (!carouselTopEl || !carouselThumbsEl || !planModalEl) {
-        return;
+        return; 
     }
 
-    // --- INICIALIZACIÓN DE MODAL ---
+    // 3. PREPARAR EL MODAL
     const planModal = new bootstrap.Modal(planModalEl);
     const modalImage = document.getElementById('modalPlanImage');
     const modalButton = document.getElementById('modalWspButton');
 
-    // CAMBIO: Función genérica para abrir el modal
+    // Función que abre el modal y guarda los datos del item en el botón
     function openModal(item) {
         modalImage.src = item.img;
         modalButton.href = item.wsp;
-        // ¡NUEVO! Guardamos el nombre del item en el botón para el tracking
+        modalButton.dataset.itemId = item.id; // Guardamos el ID para el tracking
         modalButton.dataset.itemName = item.nombre;
         planModal.show();
     }
     
-    // ¡NUEVO! Lógica para registrar el clic en el botón de WhatsApp
+    // 4. AÑADIR LA LÓGICA DE TRACKING DE CLICS
     modalButton.addEventListener('click', function() {
-        const itemName = this.dataset.itemName || 'desconocido';
-        // Creamos un identificador único para el clic
-        const identifier = `whatsapp_cta_${itemName.replace(/\s+/g, '_').toLowerCase()}`;
+        const itemId = this.dataset.itemId;
+        
+        if (!itemId || carouselType === 'desconocido') {
+            console.error('No se pudo rastrear el clic: falta ID o tipo.');
+            return;
+        }
 
-        // Preparamos los datos para enviar al servidor
-        const data = { identifier: identifier };
+        const data = {
+            id: itemId,
+            type: carouselType
+        };
 
-        // Usamos fetch para enviar una petición POST a nuestra API en segundo plano
-        fetch('/track-click', { // Usamos la URL estática que definimos en web.php
+        // Enviamos la petición a nuestra API de Laravel
+        fetch('/track-click', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // Obtenemos el token de seguridad CSRF de la etiqueta meta en el <head>
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify(data)
         })
         .then(response => {
-            if (!response.ok) console.error('Error en la respuesta del tracking');
+            if (!response.ok) {
+                console.error('Error en la respuesta del servidor al rastrear el clic.');
+            }
             return response.json();
         })
-        .then(data => console.log('Click rastreado:', data.status))
-        .catch(error => console.error('Error al rastrear el clic:', error));
-        
-        // La navegación al link de WhatsApp continuará normalmente
+        .then(data => {
+            console.log('Click rastreado con éxito:', data.status);
+        })
+        .catch(error => {
+            console.error('Hubo un error en la petición fetch para rastrear el clic:', error);
+        });
     });
 
-    // --- Llenar los carruseles con los datos ---
+    // 5. LLENAR LOS CARRUSELES CON LOS DATOS
     const hybridWrapperTop = carouselTopEl.querySelector('.swiper-wrapper');
     const hybridWrapperThumbs = carouselThumbsEl.querySelector('.swiper-wrapper');
 
     carouselData.forEach(item => {
-        // Crear slide para carrusel principal
         const topSlide = document.createElement('div');
         topSlide.className = 'swiper-slide';
         topSlide.innerHTML = `<img src="${item.img}" alt="${item.nombre}">`;
@@ -72,14 +81,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         hybridWrapperTop.appendChild(topSlide);
 
-        // Crear slide para carrusel de miniaturas
         const thumbSlide = document.createElement('div');
         thumbSlide.className = 'swiper-slide';
         thumbSlide.innerHTML = `<img src="${item.img}" alt="Miniatura ${item.nombre}">`;
         hybridWrapperThumbs.appendChild(thumbSlide);
     });
 
-    // --- Inicialización de Swiper.js ---
+    // 6. INICIALIZAR SWIPER.JS
     const hybridThumbs = new Swiper(carouselThumbsEl, {
         spaceBetween: 15,
         slidesPerView: 4,
