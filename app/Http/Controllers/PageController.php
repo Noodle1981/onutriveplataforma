@@ -20,32 +20,60 @@ class PageController extends Controller
     }
 
 public function planes(): View
-{
-    // 1. Obtenemos todos los planes activos de la base de datos
-    $planes = Plan::latest()->get();
+    {
+        $planes = Plan::latest()->get();
 
-    // 2. Transformamos la colección en un array simple, listo para ser convertido a JSON.
-    //    Esta es la "lógica" que movemos del Blade al Controlador.
-    $planesParaJs = $planes->map(function ($plan) {
-        return [
-            'id' => $plan->id,
-            'nombre' => $plan->name,
-            'description' => $plan->description,
-            'img' => asset('storage/' . $plan->image_path),
-            'wsp' => 'https://wa.me/542645820093?text=Hola%20Onnutrive%2C%20quisiera%20consultar%20por%20el%20plan%20' . urlencode($plan->name),
-        ];
-    });
+        $planesParaJs = $planes->map(function ($plan) {
+            // 1. Construimos el mensaje de WhatsApp detallado
+            $whatsappMessage = "Hola Onnutrive, quisiera consultar por el siguiente plan:\n\n";
+            $whatsappMessage .= "*Plan:* " . $plan->name . "\n";
+            $whatsappMessage .= "*Descripción:* " . $plan->description;
 
-    // 3. Pasamos ESE array ya preparado a la vista.
-    return view('planes.planes', ['planes' => $planesParaJs]);
-}
+            // 2. Creamos la URL completa, codificando el mensaje
+            $wspUrl = 'https://wa.me/542645820093?text=' . urlencode($whatsappMessage);
+            
+            // 3. Devolvemos el array con la nueva URL de WhatsApp
+            return [
+                'id' => $plan->id,
+                'nombre' => $plan->name,
+                'description' => $plan->description,
+                'img' => asset('storage/' . $plan->image_path),
+                'wsp' => $wspUrl, // <-- ¡La URL ahora es mucho más potente!
+            ];
+        });
+
+        return view('planes.planes', ['planes' => $planesParaJs]);
+    }
+    
+    public function pasteleria(): View
+    {
+        // Aplicamos la misma lógica para pastelería
+        $pasteles = Pasteleria::latest()->get();
+
+        $pastelesParaJs = $pasteles->map(function ($pastel) {
+            $whatsappMessage = "Hola Onnutrive, quisiera consultar por el siguiente producto de pastelería:\n\n";
+            $whatsappMessage .= "*Producto:* " . $pastel->name . "\n";
+            $whatsappMessage .= "*Descripción:* " . $pastel->description;
+
+            $wspUrl = 'https://wa.me/542645820093?text=' . urlencode($whatsappMessage);
+            
+            return [
+                'id' => $pastel->id,
+                'nombre' => $pastel->name,
+                'description' => $pastel->description,
+                'img' => asset('storage/' . $pastel->image_path),
+                'wsp' => $wspUrl,
+            ];
+        });
+
+        // ¡IMPORTANTE! Asegúrate de tener una vista para pastelería
+        // return view('pasteleria.publica', ['pasteles' => $pastelesParaJs]);
+        // Por ahora, solo devolvemos la vista estática que tenías
+        return view('pasteleria.pasteleria', ['pasteles' => $pastelesParaJs]);
+    }
+
     public function viandas(): View
     {
         return view('viandas.viandas');
-    }
-
-    public function pasteleria(): View
-    {
-        return view('pasteleria.pasteleria');
     }
 }

@@ -1,80 +1,97 @@
-import "./bootstrap";
-import "bootstrap";
+// resources/js/app.js
 
-// js/app.js
+import './bootstrap';
+import 'bootstrap';
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
+
     /**
-     * Función para cambiar la clase del navbar al hacer scroll.
-     * Añade la clase 'navbar-scrolled' cuando el usuario baja en la página,
-     * permitiendo que el CSS aplique diferentes estilos (ej. fondo sólido).
+     * 1. MANEJO DEL NAVBAR AL HACER SCROLL
+     * Añade la clase 'navbar-scrolled' cuando el usuario baja en la página.
      */
     const setupNavbarScroll = () => {
         const navbar = document.querySelector(".navbar-glass");
-        // Si no existe el navbar en la página, no hagas nada.
-        if (!navbar) return;
+        if (!navbar) return; // Si no hay navbar con esta clase, no hacemos nada.
 
         const handleScroll = () => {
-            // Comprueba si la posición vertical del scroll es mayor a 50 píxeles
             if (window.scrollY > 50) {
-                // Si hemos bajado, añade la clase
                 navbar.classList.add("navbar-scrolled");
             } else {
-                // Si estamos arriba, quita la clase
                 navbar.classList.remove("navbar-scrolled");
             }
         };
 
-        // Ejecuta la función una vez al cargar por si la página ya está scrolleada
         handleScroll();
-        // Escucha el evento de scroll en toda la ventana
         window.addEventListener("scroll", handleScroll);
     };
 
     /**
-     * Función para actualizar el año en el pie de página automáticamente.
+     * 2. MANEJO DE ANIMACIONES AL HACER SCROLL
+     * Añade la clase 'is-visible' a los elementos con 'animate-on-scroll' cuando entran en la pantalla.
      */
-    const setCopyrightYear = () => {
-        const yearSpan = document.getElementById("copyright-year");
-        if (yearSpan) {
-            yearSpan.textContent = new Date().getFullYear();
-        }
-    };
-
     const setupScrollAnimations = () => {
-        const elementsToAnimate =
-            document.querySelectorAll(".animate-on-scroll");
+        const elementsToAnimate = document.querySelectorAll(".animate-on-scroll");
         if (elementsToAnimate.length === 0) return;
 
         const scrollObserver = new IntersectionObserver(
             (entries, observer) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        // Obtiene el delay del atributo data-delay, si existe
                         const delay = parseInt(entry.target.dataset.delay) || 0;
                         setTimeout(() => {
                             entry.target.classList.add("is-visible");
                         }, delay);
-                        // Deja de observar el elemento una vez animado para mejorar el rendimiento
                         observer.unobserve(entry.target);
                     }
                 });
             },
-            {
-                rootMargin: "0px 0px -100px 0px", // Activa la animación un poco antes de que llegue al borde
-            }
+            { rootMargin: "0px 0px -100px 0px" }
         );
 
         elementsToAnimate.forEach((el) => scrollObserver.observe(el));
     };
 
-    // Llama a la función para activar el comportamiento de scroll del navbar
-    setupNavbarScroll();
-    setCopyrightYear();
-    setupScrollAnimations();
-});
+    /**
+     * 3. ACTUALIZAR EL AÑO DEL COPYRIGHT EN EL FOOTER
+     * Busca un elemento con id="copyright-year" y le pone el año actual.
+     */
+    const setCopyrightYear = () => {
+        const yearSpan = document.getElementById("copyright-year");
+        if (yearSpan) { // Comprobación de seguridad: solo se ejecuta si el elemento existe
+            yearSpan.textContent = new Date().getFullYear();
+        }
+        
+        // Comprobación para el otro ID que tenías
+        const yearSpanAlt = document.getElementById("year");
+        if (yearSpanAlt) {
+            yearSpanAlt.textContent = new Date().getFullYear();
+        }
+    };
+    
+    /**
+     * 4. CIERRE DEL MENÚ MÓVIL AL HACER CLIC EN UN ENLACE
+     * (Esta es la lógica que añadimos antes)
+     */
+    const setupMobileMenuClose = () => {
+        const navLinks = document.querySelectorAll('#navbarNav .nav-link');
+        const navCollapse = document.querySelector('#navbarNav.collapse');
+        if (navLinks.length > 0 && navCollapse) {
+            const bsCollapse = new bootstrap.Collapse(navCollapse, { toggle: false });
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                   if (navCollapse.classList.contains('show')) {
+                       bsCollapse.hide();
+                   }
+                });
+            });
+        }
+    };
 
-// Actualiza el año en el pie de página
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // --- EJECUCIÓN DE TODAS LAS FUNCIONES ---
+    setupNavbarScroll();
+    setupScrollAnimations();
+    setCopyrightYear();
+    setupMobileMenuClose();
+    
 });

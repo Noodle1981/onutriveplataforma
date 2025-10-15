@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes; // <-- REVISAR SI ES NECESARIO
 
 class Click extends Model
 {
-    use HasFactory;
-    protected $fillable = ['button_identifier', 'ip_address', 'user_agent'];
-
+    protected $fillable = [
+        'clickable_id',
+        'clickable_type',
+        'ip_address',
+        'user_agent'
+    ];
     public function clickable()
 {
     return $this->morphTo();

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PasteleriaController;
 use App\Http\Controllers\Admin\ProfileController; // ¡Importante!
+use App\Http\Controllers\Api\ClickController;
 
 /*
 |--------------------------------------------------------------------------
