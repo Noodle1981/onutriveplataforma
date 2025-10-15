@@ -10,20 +10,22 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('planes', function (Blueprint $table) {
-        $table->id();
-        $table->string('name'); // Para el nombre del plan
-        $table->string('image_path'); // Para guardar la RUTA de la imagen
-        $table->timestamps(); // created_at y updated_at
-    });
-}
+    {
+        Schema::create('planes', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description')->nullable(); // <-- AÑADIDO (text es mejor para descripciones largas)
+            $table->string('image_path')->nullable();
+            $table->softDeletes(); // <-- Asegúrate de que esta línea esté aquí
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('plans');
+        Schema::dropIfExists('planes');
     }
 };

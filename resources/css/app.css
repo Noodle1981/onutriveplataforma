@@ -13,6 +13,7 @@
     --brand-dark: #333333;
     --font-title: 'Nunito', sans-serif;
     --font-body: 'Nunito', sans-serif;
+     --brand-accent: #DA4735;
 }
 
 /* 2. ESTILOS GLOBALES DEL BODY */
@@ -417,6 +418,7 @@ h1.display-4 {
 }
 
 /* ================== FORMATO HÍBRIDO ================== */
+
 .hybridCarouselTop {
     width: 100%;
     padding-top: 50px;
@@ -426,12 +428,15 @@ h1.display-4 {
 .hybridCarouselTop .swiper-slide {
     background-position: center;
     background-size: cover;
-    width: 350px;
-    height: 440px;
+    width: 90%; /* Ancho responsive */
+    max-width: 350px; /* Ancho máximo */
+    height: auto; /* Altura automática */
+    aspect-ratio: 350 / 440; /* Mantiene la proporción */
     border-radius: 20px;
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-    background-color: var(--background-cream);
+    background-color: var(--brand-cream);
     overflow: hidden;
+    transition: transform 0.3s ease;
 }
 
 .hybridCarouselTop .swiper-slide img {
@@ -443,12 +448,11 @@ h1.display-4 {
 
 .hybridCarouselTop .swiper-slide-active {
     cursor: pointer;
+    transform: scale(1.05); /* Destaca la tarjeta activa */
 }
 
-/* Contenedor de miniaturas ajustado para 2 filas */
 .hybridCarouselThumbs {
-    height: 260px;
-    /* Mayor altura para dos filas */
+    height: 240px; /* Altura para dos filas */
     box-sizing: border-box;
     padding: 10px 0;
     margin-top: 10px;
@@ -456,18 +460,18 @@ h1.display-4 {
 
 .hybridCarouselThumbs .swiper-slide {
     height: calc((100% - 20px) / 2);
-    /* Calcula la altura de la fila */
-    opacity: 0.4;
+    opacity: 0.5;
     cursor: pointer;
     border-radius: 10px;
     overflow: hidden;
     transition: opacity 0.3s ease, border 0.3s ease;
     border: 4px solid transparent;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .hybridCarouselThumbs .swiper-slide-thumb-active {
     opacity: 1;
-    border-color: var(--nutrive-gold);
+    border-color: var(--brand-gold);
 }
 
 .hybridCarouselThumbs .swiper-slide img {
@@ -476,46 +480,63 @@ h1.display-4 {
     object-fit: cover;
 }
 
-/* --- ESTILOS DEL MODAL (APLICA A TODOS) --- */
+/* --- ESTILOS MEJORADOS DEL MODAL (APLICA A TODOS) --- */
 .modal-content {
-    border-radius: 15px;
+    border-radius: 1.5rem;
     border: none;
+    background-color: var(--brand-cream);
 }
 
 .modal-header {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1.5rem;
 }
 
 .modal-title {
-    color: var(--nutrive-green);
+    color: var(--brand-green);
+    font-family: var(--font-title);
     font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.modal-body img {
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 .modal-footer {
     border-top: none;
-    padding: 1rem;
+    padding: 0 1.5rem 1.5rem;
 }
 
+/* Botón del modal con estilo unificado */
 .btn-wsp-modal {
-    background-color: var(--nutrive-red);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--brand-accent); /* Asegúrate de tener esta variable en :root */
     color: white;
     font-weight: 700;
-    padding: 12px 20px;
-    border-radius: 50px;
-    border: 2px solid var(--nutrive-red);
-    transition: all 0.3s ease;
+    padding: 0.75rem 1.75rem;
+    border-radius: 9999px;
     text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    font-size: 1.1rem;
 }
 
 .btn-wsp-modal:hover {
-    background-color: transparent;
-    color: var(--nutrive-red);
+    color: white;
+    background-color: #c94030;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
 .btn-wsp-modal i {
-    margin-right: 8px;
-    font-size: 1.2rem;
+    margin-right: 0.75rem;
 }
+Asegú
 
 #contacto {
     background-color: var(--nutrive-green);

@@ -9,6 +9,8 @@
 
 @section('content')
 
+
+
 <div class="container">
     <div class="container py-5" id="planesSection">
         <div class="text-center mb-5">
@@ -31,40 +33,44 @@
 
     <!-- ===== MODAL ÚNICO Y REUTILIZABLE ===== -->
     <div class="modal fade" id="planModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Detalle del Plan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <img id="modalPlanImage" src="" class="img-fluid rounded" alt="Imagen del plan">
-                </div>
-                <div class="modal-footer">
-                    <a id="modalWspButton" href="" target="_blank" class="btn btn-wsp-modal w-100">
-                        <i class="bi bi-whatsapp"></i> Solicitar Info
-                    </a>
-                </div>
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                {{-- CAMBIO: El título ahora será dinámico --}}
+                <h5 class="modal-title" id="modalPlanTitle">Detalle del Plan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalPlanImage" src="" class="img-fluid rounded mb-3" alt="Imagen del plan">
+                {{-- ¡AÑADIDO! Un párrafo para mostrar la descripción --}}
+                <p id="modalPlanDescription" class="text-muted"></p>
+            </div>
+            <div class="modal-footer">
+                <a id="modalWspButton" href="" target="_blank" class="btn btn-wsp-modal w-100">
+                    <i class="bi bi-whatsapp"></i> Solicitar Info
+                </a>
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 @push('scripts')
+    {{-- Dependencias --}}
+    {{-- AÑADIDO: Carga del JS de Bootstrap. Debe ir antes de hybrid-carousel-init.js --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
-    {{-- PRIMERO: Define los datos para que estén disponibles globalmente --}}
     <script>
-    window.carouselData = @json($planes->map(fn($plan) => [
-        'id' => $plan->id,
-        'nombre' => $plan->name,
-        'img' => asset('storage/' . $plan->image_path),
-        'wsp' => 'https://wa.me/...' . urlencode($plan->name),
-    ]));
-    // El 'type' debe ser el nombre exacto del Modelo, con mayúscula inicial
-    window.carouselType = 'Plan';
-</script>
+        // La lógica compleja ya no está aquí.
+        // Simplemente convertimos la variable que ya viene preparada del controlador.
+        // Blade no tendrá ningún problema en analizar esto.
+        window.carouselData = @json($planes);
 
-    {{-- SEGUNDO: Carga el script que usará esos datos --}}
+        // Define el tipo de modelo
+        window.carouselType = 'Plan';
+    </script>
+
+    {{-- Carga el script que usará los datos --}}
     <script src="{{ asset('js/hybrid-carousel-init.js') }}"></script>
 @endpush

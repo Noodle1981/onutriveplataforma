@@ -19,21 +19,25 @@ class PageController extends Controller
         return view('home');
     }
 
-    public function planes(): View
+public function planes(): View
 {
-    // 1. Obtenemos los planes y los transformamos en una sola operación.
-    $planesParaLaVista = Plan::all()->map(function ($plan) {
+    // 1. Obtenemos todos los planes activos de la base de datos
+    $planes = Plan::latest()->get();
+
+    // 2. Transformamos la colección en un array simple, listo para ser convertido a JSON.
+    //    Esta es la "lógica" que movemos del Blade al Controlador.
+    $planesParaJs = $planes->map(function ($plan) {
         return [
-            // El modelo usa 'name', así que accedemos como $plan->name
-            'nombre' => $plan->name, 
-            // El modelo usa 'image_path', así que accedemos como $plan->image_path
-            'img' => asset('storage/' . $plan->image_path), 
-            'wsp' => 'https://wa.me/542645820093?text=Hola%20Onnutrive%2C%20quisiera%2C%20consultar%2C%20por%2C%20el%2C%20plan%2C%20' . urlencode($plan->name),
+            'id' => $plan->id,
+            'nombre' => $plan->name,
+            'description' => $plan->description,
+            'img' => asset('storage/' . $plan->image_path),
+            'wsp' => 'https://wa.me/542645820093?text=Hola%20Onnutrive%2C%20quisiera%20consultar%20por%20el%20plan%20' . urlencode($plan->name),
         ];
     });
 
-    // 2. Pasamos los datos ya transformados a la vista.
-    return view('planes.planes', ['planes' => $planesParaLaVista]);
+    // 3. Pasamos ESE array ya preparado a la vista.
+    return view('planes.planes', ['planes' => $planesParaJs]);
 }
     public function viandas(): View
     {

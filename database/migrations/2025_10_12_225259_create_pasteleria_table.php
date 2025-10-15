@@ -11,8 +11,9 @@ return new class extends Migration
         Schema::create('pasteleria', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->text('description')->nullable(); // <-- AÑADIDO
             $table->string('image_path')->nullable();
+            $table->softDeletes(); // <-- Asegúrate de que esta línea esté aquí
             $table->timestamps();
         });
     }

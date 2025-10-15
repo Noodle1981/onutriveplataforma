@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 1. LEER DATOS GLOBALES
     // Leemos los datos que pasamos desde Blade (el array de items y el tipo de modelo)
     const carouselData = window.carouselData || [];
+     const isLoopingEnabled = carouselData.length > 3;
     const carouselType = window.carouselType || 'desconocido';
 
     // 2. BUSCAR ELEMENTOS EN LA PÁGINA
@@ -17,17 +18,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 3. PREPARAR EL MODAL
     const planModal = new bootstrap.Modal(planModalEl);
+    const modalTitle = document.getElementById('modalPlanTitle'); // <-- Nuevo
     const modalImage = document.getElementById('modalPlanImage');
+    const modalDescription = document.getElementById('modalPlanDescription'); // <-- Nuevo
     const modalButton = document.getElementById('modalWspButton');
+
 
     // Función que abre el modal y guarda los datos del item en el botón
     function openModal(item) {
-        modalImage.src = item.img;
-        modalButton.href = item.wsp;
-        modalButton.dataset.itemId = item.id; // Guardamos el ID para el tracking
-        modalButton.dataset.itemName = item.nombre;
-        planModal.show();
-    }
+    modalTitle.textContent = item.nombre; // <-- Rellena el título
+    modalImage.src = item.img;
+    modalImage.alt = item.nombre;
+    modalDescription.textContent = item.description; // <-- Rellena la descripción
+    
+    modalButton.href = item.wsp;
+    modalButton.dataset.itemId = item.id;
+    modalButton.dataset.itemName = item.nombre;
+    
+    planModal.show();
+}
     
     // 4. AÑADIR LA LÓGICA DE TRACKING DE CLICS
     modalButton.addEventListener('click', function() {
@@ -102,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
         grabCursor: true,
         centeredSlides: true,
         slidesPerView: "auto",
-        loop: true,
+        loop: isLoopingEnabled,
         coverflowEffect: { rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
         thumbs: { swiper: hybridThumbs },
     });
