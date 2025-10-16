@@ -72,15 +72,12 @@ class PlanController extends Controller
         return redirect()->route('admin.planes.index')->with('success', 'Plan actualizado exitosamente.');
     }
 
-    // Elimina un plan
-    public function destroy($id): RedirectResponse
+    // Elimina un plan (Soft Delete)
+    public function destroy(Plan $plan): RedirectResponse
     {
-        $plan =Plan::where('id', $id)->firstOrFail();
-        // Borra la imagen del almacenamiento
-        Storage::disk('public')->delete($plan->image_path);
-        // Borra el registro de la base de datos
-        $plan->delete();
+        $plan->delete(); // Realiza un Soft Delete, los clics no se tocan.
 
-        return redirect()->route('admin.planes.index')->with('success', 'Plan eliminado exitosamente.');
+        // Ya no borramos la imagen para poder restaurar el plan en el futuro.
+        return redirect()->route('admin.planes.index')->with('success', 'Plan movido a la papelera exitosamente.');
     }
 }

@@ -5,6 +5,8 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1>Gestionar Planes</h1>
     <a href="{{ route('admin.planes.create') }}" class="btn btn-primary">Crear Nuevo Plan</a>
+<a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Volver a Dahsboard</a>
+    
 </div>
 
 {{-- ... bloque de success ... --}}

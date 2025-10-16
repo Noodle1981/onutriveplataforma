@@ -34,7 +34,7 @@ Route::post('register', [RegisterController::class, 'register']);
 */
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('planes', PlanController::class)->names('planes');
+    Route::resource('planes', PlanController::class)->parameters(['planes' => 'plan'])->names('planes');
     Route::resource('pasteleria', PasteleriaController::class)->names('pasteleria');
     
     // Rutas para el perfil del administrador
@@ -61,7 +61,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // El CRUD de Planes sigue funcionando con su nueva estructura de vistas
-    Route::resource('planes', PlanController::class)->names('planes');
+    Route::resource('planes', PlanController::class)->parameters(['planes' => 'plan'])->names('planes');
     
     // El CRUD de Pastelería se integra perfectamente
     Route::resource('pasteleria', PasteleriaController::class)->names('pasteleria');
