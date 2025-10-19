@@ -12,7 +12,7 @@
     
     {{-- =================== CAMBIO IMPORTANTE =================== --}}
     {{--   Llamamos a @vite una sola vez con AMBOS archivos aquí   --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/panel.css', 'resources/js/app.js'])
     {{-- ========================================================= --}}
 
     @stack('styles')

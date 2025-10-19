@@ -10,24 +10,46 @@
 
     {{-- SECCIÓN DE ACCIONES --}}
     <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body text-center">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center d-flex flex-column">
                     <h5 class="card-title">Gestión de Planes</h5>
                     <p class="card-text">Crear, editar y eliminar los planes de alimentación.</p>
-                    <a href="{{ route('admin.planes.index') }}" class="btn btn-lg btn-primary">
+                    <a href="{{ route('admin.planes.index') }}" class="btn btn-lg btn-primary mt-auto">
                         Administrar Planes
                     </a>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Gestión de Pastelería</h5>
-                    <p class="card-text">Añadir, editar y eliminar productos de pastelería.</p>
-                    <a href="{{ route('admin.pasteleria.index') }}" class="btn btn-lg btn-success">
-                        Administrar Pastelería
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center d-flex flex-column">
+                    <h5 class="card-title">Gestión de Postres</h5>
+                    <p class="card-text">Añadir, editar y eliminar los postres.</p>
+                    <a href="{{ route('admin.postres.index') }}" class="btn btn-lg btn-info mt-auto">
+                        Administrar Postres
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center d-flex flex-column">
+                    <h5 class="card-title">Gestión de Budines</h5>
+                    <p class="card-text">Añadir, editar y eliminar los budines.</p>
+                    <a href="{{ route('admin.budines.index') }}" class="btn btn-lg btn-warning mt-auto">
+                        Administrar Budines
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center d-flex flex-column">
+                    <h5 class="card-title">Gestión de Snacks</h5>
+                    <p class="card-text">Añadir, editar y eliminar los snacks.</p>
+                    <a href="{{ route('admin.snacks.index') }}" class="btn btn-lg btn-danger mt-auto">
+                        Administrar Snacks
                     </a>
                 </div>
             </div>
@@ -101,7 +123,41 @@
                 </tbody>
             </table>
         </div>
-        {{-- ... tabla similar para pastelería ... --}}
+        <div class="col-md-6">
+            <h3>Postres más Populares</h3>
+            <table class="table">
+                <thead><tr><th>Postre</th><th>Total Clics</th></tr></thead>
+                <tbody>
+                    @foreach($postresConClicks as $postre)
+                    <tr><td>{{ $postre->name }}</td><td>{{ $postre->clicks_count }}</td></tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h3>Budines más Populares</h3>
+            <table class="table">
+                <thead><tr><th>Budin</th><th>Total Clics</th></tr></thead>
+                <tbody>
+                    @foreach($budinesConClicks as $budin)
+                    <tr><td>{{ $budin->name }}</td><td>{{ $budin->clicks_count }}</td></tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h3>Snacks más Populares</h3>
+            <table class="table">
+                <thead><tr><th>Snack</th><th>Total Clics</th></tr></thead>
+                <tbody>
+                    @foreach($snacksConClicks as $snack)
+                    <tr><td>{{ $snack->name }}</td><td>{{ $snack->clicks_count }}</td></tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
     
     {{-- GRÁFICOS --}}

@@ -1,0 +1,27 @@
+/* 1. Importa todos los estilos base de app.css */
+@import './app.css';
+
+
+/* EN: resources/css/panel.css */
+
+/*
+================================================================
+ ESTILOS EXCLUSIVOS PARA EL PANEL DE ADMINISTRACIÓN DE ONNUTRIVE
+================================================================
+*/
+
+/* 1. Definimos las variables de color para que el panel pueda usarlas. */
+:root {
+    --brand-cream: #fdfaf5;
+}
+
+/* 2. Aplicamos el color de fondo a todo el cuerpo del panel. */
+body.admin-bg {
+    background-color: var(--brand-cream); 
+}
+
+/* 3. Estilo opcional para que las tarjetas resalten sobre el fondo. */
+.admin-bg .card {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Sombra suave para las tarjetas */
+}

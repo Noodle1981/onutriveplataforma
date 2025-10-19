@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Click;
 use App\Models\Plan;
 use App\Models\Pasteleria;
+use App\Models\Budin;
+use App\Models\Postre;
+use App\Models\Snack;
+
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Agent\Agent;
 
@@ -16,6 +20,12 @@ class DashboardController extends Controller
         // --- Clicks por Modelo (Esto ya es compatible) ---
         $planesConClicks = Plan::withTrashed()->withCount('clicks')->orderBy('clicks_count', 'desc')->get();
         $pasteleriaConClicks = Pasteleria::withTrashed()->withCount('clicks')->orderBy('clicks_count', 'desc')->get();
+        
+        $budinesConClicks = Budin::withTrashed()->withCount('clicks')->orderBy('clicks_count', 'desc')->get();
+        $postresConClicks = Postre::withTrashed()->withCount('clicks')->orderBy('clicks_count', 'desc')->get();
+        $snacksConClicks = Snack::withTrashed()->withCount('clicks')->orderBy('clicks_count', 'desc')->get();
+
+
         
         // --- Clicks por Hora (del día actual) - VERSIÓN COMPATIBLE ---
         // 1. Obtenemos solo la columna 'created_at' de los clics de hoy.
@@ -59,7 +69,12 @@ class DashboardController extends Controller
         $tabletCount = 0;
 
         $totalPlanes = Plan::count();
+        
         $totalPasteleria = Pasteleria::count();
+        
+        $totalBudines = Budin::count();
+        $totalPostres = Postre::count();
+        $totalSnacks = Snack::count();
         $totalClicks = Click::count();
         $clicksHoy = Click::whereDate('created_at', today())->count();
 
@@ -74,6 +89,10 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact(
             'planesConClicks', 
             'pasteleriaConClicks',
+            'budinesConClicks',
+            'postresConClicks',
+            'snacksConClicks',
+
             'horasDelDia',
             'clicksPorMes',
             'desktopCount',
@@ -82,6 +101,10 @@ class DashboardController extends Controller
 
             'totalPlanes',
             'totalPasteleria',
+            'totalBudines',
+            'totalPostres',
+            'totalSnacks',
+
             'totalClicks',
             'clicksHoy'
 
