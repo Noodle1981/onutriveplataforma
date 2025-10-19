@@ -3,6 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
+        <div class="ml-4"><a href="{{ route('home') }}" class="btn btn-info" target="_blank">Ver Página Pública</a></div>
     </x-slot>
 
     <div class="py-12">

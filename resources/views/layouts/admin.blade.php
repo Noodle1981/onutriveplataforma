@@ -22,11 +22,11 @@
     {{-- ========================================================= --}}
     {{--       BARRA DE NAVEGACIÓN EXCLUSIVA PARA EL ADMIN         --}}
     {{-- ========================================================= --}}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-admin">
         <div class="container">
             {{-- Enlace al Dashboard principal del admin --}}
-            <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
-                Onnutrive Admin
+            <a class="navbar-brand" href="{{ route('home') }}">
+                <img id="nav-logo" src="{{ asset('img/logo-blanco.png') }}" alt="Onnutrive Logo" style="height: 48px; transition: all 0.3s ease;">
             </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar">

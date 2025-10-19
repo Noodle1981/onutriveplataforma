@@ -1,28 +1,132 @@
-/* 1. Importa todos los estilos base de app.css */
-@import './app.css';
-
-
-/* EN: resources/css/panel.css */
-
 /*
 ================================================================
- ESTILOS EXCLUSIVOS PARA EL PANEL DE ADMINISTRACIÓN DE ONNUTRIVE
+        PANEL.CSS - ESTILOS PARA EL PANEL DE ADMINISTRACIÓN
 ================================================================
 */
 
-/* 1. Definimos las variables de color para que el panel pueda usarlas. */
+/*
+ PASO 1: HERENCIA DE ESTILOS GLOBALES (SIN @import)
+ Copiamos las piezas clave de app.css para tener una base consistente.
+*/
+
+/* 1.1: Variables de color y tipografía de la marca */
 :root {
+    --brand-green: #124735;
+    --brand-gold: #DABD85;
+    --brand-accent: #DA4735;
     --brand-cream: #fdfaf5;
+    --brand-dark: #333333;
+    --font-title: 'Nunito', sans-serif;
+    --font-body: 'Nunito', sans-serif;
 }
 
-/* 2. Aplicamos el color de fondo a todo el cuerpo del panel. */
+/* 1.2: Estilo base del cuerpo del panel */
 body.admin-bg {
-    background-image: none; /* Anulamos la imagen de fondo global */
-    background-color: var(--brand-cream); 
+    font-family: var(--font-body);
+    background-color: var(--brand-cream); /* Fondo crema, sin imagen */
+    color: var(--brand-dark);
 }
 
-/* 3. Estilo opcional para que las tarjetas resalten sobre el fondo. */
+/* 2.1: Estilo del Navbar del Panel */
+.navbar-admin {
+    background-color: var(--brand-green) !important; /* Fondo verde oscuro de tu marca */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);    /* Sombra suave */
+}
+
+/* Estilo para los enlaces del navbar */
+.navbar-admin .navbar-brand,
+.navbar-admin .nav-link,
+.navbar-admin .navbar-text {
+    color: black /* Texto blanco semi-transparente */
+}
+
+/* Estilo para el enlace activo o al pasar el mouse */
+.navbar-admin .nav-link.active,
+.navbar-admin .nav-link:hover,
+.navbar-admin .navbar-brand:hover {
+    color: white; /* Texto blanco sólido */
+}
+
+/* Color del ícono del menú móvil (las 3 rayitas) */
+.navbar-admin .navbar-toggler-icon {
+    /* Esto es un poco más complejo porque es una imagen SVG de fondo */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+.navbar-admin .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+
+/*
+ PASO 2: ESTILOS PERSONALIZADOS PARA EL PANEL
+ Adaptamos la identidad visual del sitio público a los componentes del admin.
+*/
+
+/* 2.1: Títulos principales del panel */
+.admin-bg h1, .admin-bg h2, .admin-bg h3 {
+    font-family: var(--font-title);
+    font-weight: 800;
+    color: var(--brand-green);
+}
+
+/* 2.2: Estilo de las tarjetas (cards) del dashboard */
 .admin-bg .card {
     border: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Sombra suave para las tarjetas */
+    border-radius: 0.75rem; /* Bordes más suaves */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07); /* Sombra más pronunciada */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.admin-bg .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.admin-bg .card-header {
+    background-color: transparent;
+    border-bottom: 1px solid #eee;
+    font-weight: 700;
+    color: var(--brand-green);
+}
+
+/* 2.3: Estilo de las tablas */
+.admin-bg .table {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    overflow: hidden; /* Para que el borde redondeado se aplique a la tabla */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+.admin-bg .table thead {
+    background-color: var(--brand-green);
+    color: white;
+}
+
+/* 2.4: Estilo de los gráficos */
+.admin-bg canvas {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+}
+
+/* 2.5: Estilo de los botones (usando las variables de la marca) */
+.admin-bg .btn-primary {
+    background-color: var(--brand-green);
+    border-color: var(--brand-green);
+}
+.admin-bg .btn-primary:hover {
+    background-color: #0f382a; /* Un verde un poco más oscuro */
+    border-color: #0f382a;
+}
+
+.admin-bg .btn-info {
+    background-color: var(--brand-gold);
+    border-color: var(--brand-gold);
+    color: var(--brand-dark);
+}
+
+.admin-bg .btn-danger {
+    background-color: var(--brand-accent);
+    border-color: var(--brand-accent);
 }
